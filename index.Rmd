@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "United States Covid Project"
+author: "Ruize Yu, Jiazhen Li, Wenxin Zhang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
