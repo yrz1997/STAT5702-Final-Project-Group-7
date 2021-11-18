@@ -2,6 +2,10 @@ introduction
 data-sources
 data-transformation
 missing-values
+dataframe-after-data-cleaning
+missing-value-counts-by-column
+missing-value-counts-by-row
+heatmap
 results
 interactive-component
 conclusion
