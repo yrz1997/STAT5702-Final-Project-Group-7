@@ -24,7 +24,7 @@
 <meta name="author" content="Ruize Yu, Jiazhen Li, Wenxin Zhang" />
 
 
-<meta name="date" content="2021-11-15" />
+<meta name="date" content="2021-11-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,7 +76,13 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1</b> Dataframe after data cleaning</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing value counts by column</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.3</b> Missing value counts by row</a></li>
+<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.4</b> Heatmap</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -101,7 +107,63 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<p>We will use US vaccination data as an example to show how we are going to show missing data pattern.</p>
+<div id="dataframe-after-data-cleaning" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Dataframe after data cleaning</h2>
+<pre><code>## # A tibble: 6 x 14
+##   date       location   total_vaccinatio~ total_distributed people_vaccinat~ people_fully_vaccinate~
+##   &lt;date&gt;     &lt;chr&gt;                  &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;                   &lt;dbl&gt;
+## 1 2020-12-20 United St~            556208                NA               NA                      NA
+## 2 2020-12-21 United St~            614117                NA               NA                      NA
+## 3 2020-12-22 United St~                NA                NA               NA                      NA
+## 4 2020-12-23 United St~           1008025                NA               NA                      NA
+## 5 2020-12-24 United St~                NA                NA               NA                      NA
+## 6 2020-12-25 United St~                NA                NA               NA                      NA
+## # ... with 8 more variables: total_vaccinations_per_hundred &lt;dbl&gt;, people_fully_vaccinated &lt;dbl&gt;,
+## #   people_vaccinated_per_hundred &lt;dbl&gt;, distributed_per_hundred &lt;dbl&gt;,
+## #   daily_vaccinations_raw &lt;dbl&gt;, daily_vaccinations &lt;dbl&gt;, daily_vaccinations_per_million &lt;dbl&gt;,
+## #   share_doses_used &lt;dbl&gt;</code></pre>
+<p>We can see that each row represents a day from 2020-12-20 to now. The data is updated everyday.</p>
+</div>
+<div id="missing-value-counts-by-column" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Missing value counts by column</h2>
+<pre><code>##                                     num_missing
+## daily_vaccinations_raw                       36
+## people_fully_vaccinated_per_hundred          35
+## people_fully_vaccinated                      35
+## total_distributed                            34
+## people_vaccinated                            34
+## people_vaccinated_per_hundred                34
+## distributed_per_hundred                      34
+## share_doses_used                             34
+## total_vaccinations                           21
+## total_vaccinations_per_hundred               21
+## daily_vaccinations                            1
+## daily_vaccinations_per_million                1
+## date                                          0
+## location                                      0</code></pre>
+</div>
+<div id="missing-value-counts-by-row" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Missing value counts by row</h2>
+<pre><code>## # A tibble: 9 x 2
+##   date    num_missing
+## * &lt;chr&gt;         &lt;dbl&gt;
+## 1 2020-12         109
+## 2 2021-01         125
+## 3 2021-02          11
+## 4 2021-05          10
+## 5 2021-06           1
+## 6 2021-07          11
+## 7 2021-09          21
+## 8 2021-10          21
+## 9 2021-11          11</code></pre>
+<p>Each row should represent a specific day. However, there are too many rows that have missing values, therefore, we count missing values by month.</p>
+</div>
+<div id="heatmap" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Heatmap</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="960" /></p>
 
+</div>
 </div>
             </section>
 

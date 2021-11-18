@@ -2,6 +2,7 @@ library(readr)
 library(dplyr)
 library(tidyverse)
 library(tibble)
+library(ggplot2)
 
 us_vaccination_url <- 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv'
 

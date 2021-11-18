@@ -6,22 +6,68 @@ We will use US vaccination data as an example to show how we are going to show m
 source('data_preprocessing.R')
 ```
 
-```{r,echo=FALSE}
-colSums(is.na(us_whole_vaccination)) %>% sort(decreasing = TRUE)
+## Dataframe after data cleaning
+```{r}
+head(us_whole_vaccination)
 ```
 
+The original dataframe countain vaccination information of all states and some organizations of United States. We extracted whole country data and we can see that each row represents a day from 2020-12-20 to now. The information is updated everyday.
+
+## Missing value counts by column
+```{r,echo=FALSE}
+aa <- colSums(is.na(us_whole_vaccination)) %>% sort(decreasing = TRUE)
+result <- data.frame(num_missing = aa)
+result
+```
+
+## Missing value counts by row
 ```{r,echo=FALSE}
 values <- rowSums(is.na(us_whole_vaccination))
 result <- data.frame(date=as.Date(character()),
                      num_missing=integer())
+na_rows_index <- c()
 count <- 1
 for(i in 1:length(values)){
   if(values[i] != 0){
     result[count,1] <- us_whole_vaccination[i,1]
     result[count,2] <- values[i]
     count <- count + 1
+    na_rows_index <- c(na_rows_index,i)
   }
 }
-result
+result1 <- result
+result1$date <- format(result1$date,"%Y-%m")
+result1 <- result1 %>% group_by(date) %>% summarise(num_missing = sum(num_missing))
+result1
 ```
+
+Each row in the original dataframe represents a specific day. However, there are too many rows that have missing values. Therefore, we count missing values by month.
+December 2020 and Janurary 2021 have the greatest number of missing values. This is reasonable as vaccination just started and it's hard to get all data well-organized.
+
+## Heatmap
+```{r,echo=FALSE,fig.height=10,fig.width=10}
+df <- us_whole_vaccination[na_rows_index,-2] %>% 
+  gather(key,value,-date) %>%
+  mutate(missing=ifelse(is.na(value),'yes','no'))
+
+ggplot(df,aes(x=key,y=fct_rev(as.character(date)),fill=missing)) +
+  geom_tile(color='white') +
+  scale_fill_viridis_d() +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45,vjust=0.6)) +
+  labs(y='date')
+  
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
 
