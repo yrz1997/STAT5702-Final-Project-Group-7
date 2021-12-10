@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data transformation | United States Covid Project</title>
+  <meta name="description" content="Chapter 3 Data transformation | United States Covid Project" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Data transformation | United States Covid Project" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Data transformation | United States Covid Project" />
+  
+  
+  
+
+<meta name="author" content="Ruize Yu, Jiazhen Li, Wenxin Zhang" />
+
+
+<meta name="date" content="2021-12-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="section-data-sources.html"/>
+<link rel="next" href="section-missing-values.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/lfx-playback-1.0.0/leaflet.playback.js"></script>
+<script src="libs/lfx-playback-1.0.0/leaflet.playback-bindings.js"></script>
+<link href="libs/Leaflet.timeline-1.2.1/binding/leaftime-binding.css" rel="stylesheet" />
+<script src="libs/Leaflet.timeline-1.2.1/Leaflet.timeline/leaflet.timeline.js"></script>
+<script src="libs/Leaflet.timeline-1.2.1/binding/leaftime-binding.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">US Covid</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="section-data-sources.html"><a href="section-data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="section-data-transformation.html"><a href="section-data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="section-missing-values.html"><a href="section-missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="section-missing-values.html"><a href="section-missing-values.html#section-dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1</b> Dataframe after data cleaning</a></li>
+<li class="chapter" data-level="4.2" data-path="section-missing-values.html"><a href="section-missing-values.html#section-missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing value counts by column</a></li>
+<li class="chapter" data-level="4.3" data-path="section-missing-values.html"><a href="section-missing-values.html#section-missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.3</b> Missing value counts by row</a></li>
+<li class="chapter" data-level="4.4" data-path="section-missing-values.html"><a href="section-missing-values.html#section-heatmap"><i class="fa fa-check"></i><b>4.4</b> Heatmap</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-results.html"><a href="section-results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="6" data-path="section-interactive-component.html"><a href="section-interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="7" data-path="section-conclusion.html"><a href="section-conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">United States Covid Project</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-data-transformation" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p><iframe data-deferred-src="app2a28a7f3b406beee717522181a0e1389/?w=&amp;__subapp__=1" width="100%" height="500" class="shiny-frame shiny-frame-deferred"></iframe></p>
+<div id="htmlwidget-17acfe53c27f8928d1cd" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17acfe53c27f8928d1cd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addPlayback","args":[{"type":"Feature","geometry":{"type":"MultiPoint","coordinates":[[-74.9459697694132,45.0841470984808],[-75.0466651887052,45.1010307527836],[-75.109100259761,45.034314021008],[-75.0805158772379,44.9546227807722],[-74.9918358016557,44.9445116129377],[-74.9292354965875,45.0225635006852],[-74.9549128048687,45.1263047204779],[-75.0499035387344,45.1696428953694],[-75.1315170665925,45.1220199293323],[-75.1293616983622,45.0365069798202],[-75.0500624807062,45.001011080355],[-74.9711701596823,45.0574538193111],[-74.969861382461,45.1632288248948],[-75.0519828438358,45.2303738668826],[-75.146675861993,45.2064429254298],[-75.1715235237899,45.1227248198486],[-75.1083244146132,45.0654764124282],[-75.0198269150342,45.09661844704],[-74.9920386290904,45.1968059027845],[-75.0551513897783,45.283213716992],[-75.1557830270325,45.2856857658738],[-75.2060566887001,45.2112360811922],[-75.1643944131444,45.1376001818047],[-75.0737437154279,45.1417653961226],[-75.0220918400258,45.2291890674145],[-75.0615706940298,45.3287810975732],[-75.1605270121865,45.3582638554667],[-75.232624222995,45.2998178515581],[-75.216219894383,45.216464894407],[-75.1310395014759,45.19412613052],[-75.0600409157347,45.262626538498],[-75.073143320515,45.3682739812555],[-75.1629438363385,45.4232235092431],[-75.2515236941451,45.3862416019453],[-75.2620863922263,45.3006160764847],[-75.1895640457304,45.254357468191],[-75.1052767766237,45.2992825503007],[-75.091361322464,45.4033742316083],[-75.1652548986832,45.4802179224668],[-75.2636635031349,45.4684507099873],[-75.3007541297726,45.3881781371599],[-75.2470692385696,45.3224892593499],[-75.1566098819692,45.3410649499796],[-75.117187386307,45.436113626854],[-75.1696900233405,45.5295347968979],[-75.2704905217612,45.5447242893103],[-75.3315567792383,45.477003776921],[-75.3013881713207,45.3979220086151],[-75.2123649880499,45.3894732195725],[-75.1509781446255,45.4687120095791],[-75.1783098328439,45.5720734226348],[-75.2738748356553,45.6138142743556],[-75.3544545412475,45.5648450402707],[-75.3506077509631,45.4794746304684],[-75.2705145971011,45.4454790281187],[-75.1924557670055,45.5034004553469],[-75.1928416001314,45.6092730411814],[-75.2759607743339,45.675044840566],[-75.3700373152269,45.6495323865725],[-75.3932210960213,45.5654785338494],[-75.3288404666241,45.5094488290598],[-75.2407300918484,45.5422435464967],[-75.214541654973,45.6429981962929],[-75.2789960951389,45.7283662401833],[-75.3794777083561,45.7291475144137],[-75.4282475738795,45.6539105411633],[-75.3851103133123,45.5811146687691],[-75.2943695361342,45.5869749086987],[-75.2440953054621,45.6753902054904],[-75.2851529281762,45.7743587651255],[-75.384437626352,45.8021761723961],[-75.4553109174132,45.7425540534479],[-75.4372556354591,45.659595531584],[-75.3515151345038,45.6388591113269],[-75.2815622467649,45.7086965839338],[-75.2963547456771,45.8141865212656],[-75.3869358870115,45.8676287835348],[-75.4746691982134,45.8291756233765],[-75.4835364886185,45.743467521008],[-75.4100286233738,45.6985909325875],[-75.3263718058382,45.7450920086534],[-75.3141231393027,45.8495046964251],[-75.3891874023441,45.9251192743928],[-75.4871942687507,45.9117028703912],[-75.5226800885818,45.83087728649],[-75.4676627737879,45.7662400138855],[-75.3773684009169,45.7865050850238],[-75.3394566110244,45.8823277090612],[-75.3934267399503,45.9748958294701],[-75.4943023111079,45.98838956535],[-75.5539822006383,45.919689660266],[-75.522240404387,45.8412453122303],[-75.4329035944945,45.8344647151659],[-75.37275103303,45.9148687408472],[-75.401730118648,46.0178211209686],[-75.4978410247271,46.0579547341394],[-75.5773632385081,46.0076577435997],[-75.5718278144281,45.9224597925989],[-75.4909674069102,45.8899783064804],[-75.4137681127712,45.949363435889]]},"properties":{"time":[1630483200000,1630483236363.64,1630483272727.27,1630483309090.91,1630483345454.55,1630483381818.18,1630483418181.82,1630483454545.45,1630483490909.09,1630483527272.73,1630483563636.36,1630483600000,1630483636363.64,1630483672727.27,1630483709090.91,1630483745454.55,1630483781818.18,1630483818181.82,1630483854545.45,1630483890909.09,1630483927272.73,1630483963636.36,1630484000000,1630484036363.64,1630484072727.27,1630484109090.91,1630484145454.55,1630484181818.18,1630484218181.82,1630484254545.45,1630484290909.09,1630484327272.73,1630484363636.36,1630484400000,1630484436363.64,1630484472727.27,1630484509090.91,1630484545454.55,1630484581818.18,1630484618181.82,1630484654545.45,1630484690909.09,1630484727272.73,1630484763636.36,1630484800000,1630484836363.64,1630484872727.27,1630484909090.91,1630484945454.55,1630484981818.18,1630485018181.82,1630485054545.45,1630485090909.09,1630485127272.73,1630485163636.36,1630485200000,1630485236363.64,1630485272727.27,1630485309090.91,1630485345454.55,1630485381818.18,1630485418181.82,1630485454545.45,1630485490909.09,1630485527272.73,1630485563636.36,1630485600000,1630485636363.64,1630485672727.27,1630485709090.91,1630485745454.55,1630485781818.18,1630485818181.82,1630485854545.45,1630485890909.09,1630485927272.73,1630485963636.36,1630486000000,1630486036363.64,1630486072727.27,1630486109090.91,1630486145454.55,1630486181818.18,1630486218181.82,1630486254545.45,1630486290909.09,1630486327272.73,1630486363636.36,1630486400000,1630486436363.64,1630486472727.27,1630486509090.91,1630486545454.55,1630486581818.18,1630486618181.82,1630486654545.45,1630486690909.09,1630486727272.73,1630486763636.36,1630486800000]}},{"pathOptions":{"interactive":true,"className":""},"color":"blue","radius":5,"tickLen":250,"speed":100,"maxInterpolationTime":300000,"tracksLayer":true,"playControl":true,"dateControl":true,"sliderControl":true,"staleTime":3600000}]}],"limits":{"lat":[44.9445116129377,46.0579547341394],"lng":[-75.5773632385081,-74.9292354965875]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-33cf3e75f9e95245f3f3" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33cf3e75f9e95245f3f3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addTimeline","args":[null,{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[129.837222,33.51556]},"properties":{"start":"2015-01-01","end":"2015-01-02"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-77.789444,38.06056]},"properties":{"start":"2015-01-02","end":"2015-01-03"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[7.563056,47.90306]},"properties":{"start":"2015-01-03","end":"2015-01-04"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[8.415278,49.71]},"properties":{"start":"2015-01-04","end":"2015-01-05"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[9.175,49.04167]},"properties":{"start":"2015-01-05","end":"2015-01-06"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-82.343889,31.93417]},"properties":{"start":"2015-01-06","end":"2015-01-07"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[13.664422,54.14059]},"properties":{"start":"2015-01-07","end":"2015-01-08"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[13.664422,54.14059]},"properties":{"start":"2015-01-08","end":"2015-01-09"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[17.681944,48.49444]},"properties":{"start":"2015-01-09","end":"2015-01-10"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[17.681944,48.49444]},"properties":{"start":"2015-01-10","end":"2015-01-11"}}]},{"pointToLayer":"\nfunction(data, latlng) {\n  var options = this;\n\n  return L.circleMarker(latlng);\n}\n","style":{"radius":3,"stroke":true,"fill":true}},{"position":"bottomright","formatOutput":"function(date) {return new Date(date).toDateString()}\n      ","steps":10,"duration":3000,"showTicks":false},null,null]}],"setView":[[23.74667,44.0665],2,[]]},"evals":["calls.1.args.2.pointToLayer","calls.1.args.3.formatOutput"],"jsHooks":[]}</script>
+<div id="htmlwidget-7b81ef0141a08f6ef485" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b81ef0141a08f6ef485">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addTimeline","args":[null,{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[129.837222,33.51556]},"properties":{"start":"2015-01-01","end":"2015-01-02"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-77.789444,38.06056]},"properties":{"start":"2015-01-02","end":"2015-01-03"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[7.563056,47.90306]},"properties":{"start":"2015-01-03","end":"2015-01-04"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[8.415278,49.71]},"properties":{"start":"2015-01-04","end":"2015-01-05"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[9.175,49.04167]},"properties":{"start":"2015-01-05","end":"2015-01-06"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-82.343889,31.93417]},"properties":{"start":"2015-01-06","end":"2015-01-07"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[13.664422,54.14059]},"properties":{"start":"2015-01-07","end":"2015-01-08"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[13.664422,54.14059]},"properties":{"start":"2015-01-08","end":"2015-01-09"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[17.681944,48.49444]},"properties":{"start":"2015-01-09","end":"2015-01-10"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[17.681944,48.49444]},"properties":{"start":"2015-01-10","end":"2015-01-11"}}]},{"pointToLayer":"\nfunction(data, latlng) {\n  return L.circleMarker(latlng, {\n    radius: 3\n  })\n}\n"},{"formatOutput":"\nfunction(date) {\n  var dt = new Date(date); return dt.toDateString() + '<br>' + dt.toLocaleTimeString()\n}\n  "},null,null]}],"setView":[[23.74667,44.0665],2,[]]},"evals":["calls.1.args.2.pointToLayer","calls.1.args.3.formatOutput"],"jsHooks":[]}</script>
+<div id="htmlwidget-4990fc74b1595e8557e0" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4990fc74b1595e8557e0">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addTimeline","args":[null,{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[129.837222,33.51556]},"properties":{"start":"2015-01-01","end":"2015-01-02"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-77.789444,38.06056]},"properties":{"start":"2015-01-02","end":"2015-01-03"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[7.563056,47.90306]},"properties":{"start":"2015-01-03","end":"2015-01-04"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[8.415278,49.71]},"properties":{"start":"2015-01-04","end":"2015-01-05"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[9.175,49.04167]},"properties":{"start":"2015-01-05","end":"2015-01-06"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-82.343889,31.93417]},"properties":{"start":"2015-01-06","end":"2015-01-07"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[13.664422,54.14059]},"properties":{"start":"2015-01-07","end":"2015-01-08"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[13.664422,54.14059]},"properties":{"start":"2015-01-08","end":"2015-01-09"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[17.681944,48.49444]},"properties":{"start":"2015-01-09","end":"2015-01-10"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[17.681944,48.49444]},"properties":{"start":"2015-01-10","end":"2015-01-11"}}]},{"pointToLayer":"\nfunction(data, latlng) {\n  var options = this;\n\n  return L.circleMarker(latlng);\n}\n","style":{"radius":3,"stroke":true,"fill":true}},{"formatOutput":"\nfunction(date) {\n  var dt = new Date(date); return dt.toDateString() + '<br>' + dt.toLocaleTimeString()\n}\n  "},null,"function(e) {console.log(e, arguments)}"]}],"setView":[[23.74667,44.0665],2,[]]},"evals":["calls.1.args.2.pointToLayer","calls.1.args.3.formatOutput","calls.1.args.5"],"jsHooks":[]}</script>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-missing-values.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yrz1997/STAT5702-Final-Project-Group-7/edit/main/03-cleaning.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/yrz1997/STAT5702-Final-Project-Group-7/blob/main/03-cleaning.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

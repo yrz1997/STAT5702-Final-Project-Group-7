@@ -1,5 +1,44 @@
 # Data sources
 
-In this project, we have three data sources:
+In this project, we have three data sources
 
-1. 
+```{r,message=FALSE,warning=FALSE}
+source('data/data_preprocessing.R')
+```
+
+## Vaccination data
+We collected vaccination data from an organization called 'Our World in Data'. They gather vaccination information of United States from official and update the data in a daily basis. The daily cases and death data are gathered from Center for Systems Science and Engineering at John Hopkins University. It's updated every 24 hours as well. 
+
+For the vaccination data, there are 14 features. The names of them are listed below:
+```{r}
+print(colnames(state_vaccination_raw))
+```
+
+The starting date of this dataset is 2021-01-12 and the last day is yesterday.
+The first problem we noticed was that in location, there are many places that are not US states. Like "Bureau of Prisons","Dept of Defense"... Therefore, the first step that we did was to filter out these none-states. Then we found a common issue, missing data. We visualized it in missing values chapter and decided to do a backward filling. Because most of these missing values were not continuous, we could simply use the latest values to fill in these missing spots.
+
+For the cases and death data, the raw data put every day as a column therefore we first converted these columns to rows.
+```{r}
+print(colnames(state_cases_raw)[c(1:15)])
+```
+
+The starting date of this dataset is 2020-01-22 and the last day is yesterday.
+When we tried to calculate daily growing cases and death from cummulative data, we noticed that there were mistakes when collecting these data because some of the growing numbers were negative. We used the same filling method as in vaccination data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

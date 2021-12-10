@@ -24,7 +24,7 @@
 <meta name="author" content="Ruize Yu, Jiazhen Li, Wenxin Zhang" />
 
 
-<meta name="date" content="2021-11-18" />
+<meta name="date" content="2021-12-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,8 +74,14 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#vaccination-data"><i class="fa fa-check"></i><b>2.1</b> Vaccination data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#vaccination-case-and-death-data"><i class="fa fa-check"></i><b>3.1</b> Vaccination, case, and death data</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1</b> Dataframe after data cleaning</a></li>
@@ -83,7 +89,13 @@
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.3</b> Missing value counts by row</a></li>
 <li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.4</b> Heatmap</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#latest-cummulative-cases-and-deaths"><i class="fa fa-check"></i><b>5.1</b> Latest cummulative cases and deaths</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>5.2</b> Latest vaccination situation</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.3</b> Time series of serious states</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.4</b> Distribution</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -107,11 +119,27 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>In this project, we have three data sources:</p>
-<ol style="list-style-type: decimal">
-<li></li>
-</ol>
+<p>In this project, we have three data sources</p>
+<div id="vaccination-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Vaccination data</h2>
+<p>We collected vaccination data from an organization called ‘Our World in Data’. They gather vaccination information of United States from official and update the data in a daily basis. The daily cases and death data are gathered from Center for Systems Science and Engineering at John Hopkins University. It’s updated every 24 hours as well.</p>
+<p>For the vaccination data, there are 14 features. The names of them are listed below:</p>
+<pre><code>##  [1] &quot;date&quot;                                &quot;location&quot;                           
+##  [3] &quot;total_vaccinations&quot;                  &quot;total_distributed&quot;                  
+##  [5] &quot;people_vaccinated&quot;                   &quot;people_fully_vaccinated_per_hundred&quot;
+##  [7] &quot;total_vaccinations_per_hundred&quot;      &quot;people_fully_vaccinated&quot;            
+##  [9] &quot;people_vaccinated_per_hundred&quot;       &quot;distributed_per_hundred&quot;            
+## [11] &quot;daily_vaccinations_raw&quot;              &quot;daily_vaccinations&quot;                 
+## [13] &quot;daily_vaccinations_per_million&quot;      &quot;share_doses_used&quot;</code></pre>
+<p>The starting date of this dataset is 2021-01-12 and the last day is yesterday.
+The first problem we noticed was that in location, there are many places that are not US states. Like “Bureau of Prisons”,“Dept of Defense”… Therefore, the first step that we did was to filter out these none-states. Then we found a common issue, missing data. We visualized it in missing values chapter and decided to do a backward filling. Because most of these missing values were not continuous, we could simply use the latest values to fill in these missing spots.</p>
+<p>For the cases and death data, the raw data put every day as a column therefore we first converted these columns to rows.</p>
+<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;           &quot;Admin2&quot;        
+##  [7] &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;          &quot;Combined_Key&quot;   &quot;1/22/20&quot;       
+## [13] &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
+<p>When we tried to calculate daily growing cases and death from cummulative data, we noticed that there were mistakes when collecting these data because some of the growing numbers were negative. We used the same filling method as in vaccination data.</p>
 
+</div>
 </div>
             </section>
 

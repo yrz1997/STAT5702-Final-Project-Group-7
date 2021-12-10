@@ -1,1 +1,126 @@
 # Results
+
+```{r,message=FALSE,warning=FALSE}
+source('data/data_preprocessing.R')
+```
+
+## Latest cummulative cases and deaths
+```{r}
+day <- min(max(state_cases$date),max(state_death$date),max(state_vaccination$date))
+
+ggplot(state_cases[state_cases$date==day,],aes(reorder(state,cases),cases)) +
+  geom_bar(stat='identity',color='black',fill='skyblue') +
+  coord_flip() +
+  labs(x='State',y='Total Cases',title=paste('Total Cases On ',day)) +
+  theme_bw()
+
+ggplot(state_death[state_death$date==day,],aes(reorder(state,death),death)) +
+  geom_bar(stat='identity',color='black',fill='skyblue') +
+  coord_flip() +
+  labs(x='State',y='Total Death',title=paste('Total Death On ',day)) +
+  theme_bw()
+```
+
+The graphs above shows current confirmed cases and death of 50 states. We can see that California, Texas, Florida, New York, and Illinois are top 5 states with most confirmed cases. California, Texas, Florida, New York, and Pennsylvania are top 5 states with most deaths. 
+
+
+## Latest vaccination situation
+```{r,fig.width=9,fig.height=9,warning=FALSE,message=FALSE}
+df <- inner_join(inner_join(state_vaccination,state_cases[,-4],by=c('date','state')),state_death[,-4])
+df <- df[,c(-1,-2)]
+cormat <- round(cor(df),2)
+
+melted_cormat <- melt(cormat)
+
+ggplot(data=melted_cormat,aes(Var1,Var2,fill=value))+
+  geom_tile() +
+  geom_text(aes(label=value)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title = 'Correlation Heat Map of Vaccination Features')
+```
+
+As there are 12 features in our vaccination data, we use a correlation heatmap to select the most relevant features to confirmed cases and deaths. From the graph above we can see the top 4 features are total vaccinations, total distributed, people vaccinated, and people fully vaccinated. We will use people vaccinated and people fully vaccinated as two features to represent vaccination.
+
+```{r}
+df <- state_vaccination[,c(1,2,5,6)]
+p1 <- ggplot(df[df$date == day,],aes(reorder(state, people_vaccinated),people_vaccinated)) +
+  geom_bar(stat='identity',color='black',fill='skyblue') +
+  coord_flip() +
+  labs(x='State',y='People Vaccinated') +
+  theme_bw()
+
+p2 <- ggplot(df[df$date == day,],aes(reorder(state, people_fully_vaccinated_per_hundred),people_fully_vaccinated_per_hundred)) +
+  geom_bar(stat='identity',color='black',fill='skyblue') +
+  coord_flip() +
+  labs(x='State',y='People Fully Vaccinated Per Hundred') +
+  theme_bw()
+
+p1 + p2 + plot_annotation(title=paste('Vaccination Situation On ',day))
+```
+
+The 5 states with most deaths also have the largest number of people vaccinated. However, none of them are on top of the list of people fully vaccinated.
+
+## Time series of serious states
+```{r,warning=FALSE,message=FALSE}
+states <- c('California', 'Texas', 'Florida', 'New York', 'Pennsylvania')
+
+df <- inner_join(inner_join(state_vaccination,state_cases,by=c('date','state')),state_death) %>%
+  select(date,state,people_vaccinated,vacc_diff,people_fully_vaccinated,fully_vacc_diff,cases,case_diff,death,death_diff) %>%
+  filter(state %in% states) 
+  
+p1 <- ggplot(df, aes(x=date, y= case_diff)) +
+  geom_line(aes(color=state),size=1,show.legend = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(y='Case Growth')
+
+p2 <- ggplot(df, aes(x=date, y= death_diff)) +
+  geom_line(aes(color=state),size=1,show.legend = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(y='Death Growth')
+
+p3 <- ggplot(df, aes(x=date, y= vacc_diff)) +
+  geom_line(aes(color=state),size=1) +
+  theme_minimal() +
+  labs(y='Vacc Growth')
+
+p4 <- ggplot(df, aes(x=date, y= fully_vacc_diff)) +
+  geom_line(aes(color=state),size=1,show.legend = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(y='Fully Vacc Growth')
+
+p1 + p2 + p3 + p4 + plot_layout(ncol = 1) + plot_annotation(title='Time Series')
+```
+
+There is a significant outlier in people_vaccinated daily growth graph. Because from October 2nd to November 28th, the people_vaccinated information in Pennsylvania is missing. We are doing a filling by pervious data, therefore the huge spike is false.
+
+## Distribution
+```{r,warning=FALSE,message=FALSE}
+df <- inner_join(inner_join(state_vaccination,state_cases,by=c('date','state')),state_death) %>%
+  select(date,state,people_vaccinated,vacc_diff,people_fully_vaccinated,fully_vacc_diff,cases,case_diff,death,death_diff) %>%
+  filter(date == day)
+
+ggplot(df, aes(cases, people_fully_vaccinated, color=state)) +
+  geom_point(show.legend = FALSE) +
+  geom_text(aes(label=state),size=2.6,hjust=0,vjust=0) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(x='Cases',y='People Fully Vaccinated',title=paste('Vaccination vs. Cases Scatterplot On ',day))
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,11 +1,17 @@
 introduction
 data-sources
+vaccination-data
 data-transformation
+vaccination-case-and-death-data
 missing-values
 dataframe-after-data-cleaning
 missing-value-counts-by-column
 missing-value-counts-by-row
 heatmap
 results
+latest-cummulative-cases-and-deaths
+latest-vaccination-situation
+time-series-of-serious-states
+distribution
 interactive-component
 conclusion
