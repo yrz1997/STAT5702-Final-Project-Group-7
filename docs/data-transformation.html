@@ -94,10 +94,13 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1</b> Dataframe after data cleaning</a></li>
-<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing value counts by column</a></li>
-<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.3</b> Missing value counts by row</a></li>
-<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.4</b> Heatmap</a></li>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#us-vaccination"><i class="fa fa-check"></i><b>4.1</b> US vaccination</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1.1</b> Dataframe after data cleaning</a></li>
+<li class="chapter" data-level="4.1.2" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.1.2</b> Missing value counts by column</a></li>
+<li class="chapter" data-level="4.1.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.1.3</b> Missing value counts by row</a></li>
+<li class="chapter" data-level="4.1.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.1.4</b> Heatmap</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
@@ -108,7 +111,10 @@
 <li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
 <li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interactive-component.html"><a href="interactive-component.html#top-5-series-states"><i class="fa fa-check"></i><b>6.1</b> Top 5 series states</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -143,19 +149,17 @@
 <p>Dataframe after transformation:</p>
 <pre><code>## # A tibble: 6 x 16
 ## # Groups:   state [1]
-##   date       state  total_vaccinatio~ total_distributed people_vaccinat~ people_fully_vaccinate~
-##   &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;                   &lt;dbl&gt;
-## 1 2021-01-13 Alaba~             84040            378975            74792                    0.19
-## 2 2021-01-14 Alaba~             92300            435350            80480                    0.19
-## 3 2021-01-15 Alaba~            100567            444650            86956                    0.28
-## 4 2021-01-16 Alaba~            100567            444650            86956                    0.28
-## 5 2021-01-17 Alaba~            100567            444650            86956                    0.28
-## 6 2021-01-18 Alaba~            100567            444650            86956                    0.28
-## # ... with 10 more variables: total_vaccinations_per_hundred &lt;dbl&gt;,
-## #   people_fully_vaccinated &lt;dbl&gt;, people_vaccinated_per_hundred &lt;dbl&gt;,
+##   date       state  total_vaccinatio~ total_distribut~ people_vaccinat~ people_fully_vaccin~ total_vaccinations~
+##   &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;                &lt;dbl&gt;               &lt;dbl&gt;
+## 1 2021-01-13 Alaba~             84040           378975            74792                 0.19                1.71
+## 2 2021-01-14 Alaba~             92300           435350            80480                 0.19                1.88
+## 3 2021-01-15 Alaba~            100567           444650            86956                 0.28                2.05
+## 4 2021-01-16 Alaba~            100567           444650            86956                 0.28                2.05
+## 5 2021-01-17 Alaba~            100567           444650            86956                 0.28                2.05
+## 6 2021-01-18 Alaba~            100567           444650            86956                 0.28                2.05
+## # ... with 9 more variables: people_fully_vaccinated &lt;dbl&gt;, people_vaccinated_per_hundred &lt;dbl&gt;,
 ## #   distributed_per_hundred &lt;dbl&gt;, daily_vaccinations_raw &lt;dbl&gt;, daily_vaccinations &lt;dbl&gt;,
-## #   daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;, vacc_diff &lt;dbl&gt;,
-## #   fully_vacc_diff &lt;dbl&gt;</code></pre>
+## #   daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;, vacc_diff &lt;dbl&gt;, fully_vacc_diff &lt;dbl&gt;</code></pre>
 <p>Case and death:
 1. Filter out non-state, only keep 50 states.
 2. Convert date columns to rows by using dplyr.

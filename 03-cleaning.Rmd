@@ -1,9 +1,5 @@
 # Data transformation
 
-```{r,message=FALSE,warning=FALSE}
-source('data/data_preprocessing.R')
-```
-
 ## Vaccination, case, and death data
 The code is in data/data_preprocessing.R
 
@@ -33,10 +29,6 @@ head(state_cases)
 
 head(state_death)
 ```
-
-
-
-
 
 
 

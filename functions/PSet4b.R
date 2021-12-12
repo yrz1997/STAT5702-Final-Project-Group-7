@@ -57,7 +57,7 @@ variable_count_plot<-function(dataset,pd, percent){
 
 
 row_count_plot<-function(dataset,missing_patterns, percent){
- xlab="row count"
+  xlab="row count"
   if(percent){
     missing_patterns$count=missing_patterns$count*100/nrow(dataset)
     pr="%"
@@ -79,7 +79,7 @@ row_count_plot<-function(dataset,missing_patterns, percent){
       scale_x_continuous(limits =lt ,breaks=br) 
   }
   
- side2 
+  side2 
 }
 
 
@@ -122,4 +122,3 @@ missing_plot<-function(dataset,percent){
   
   side1 +plot_spacer()+main+side2+plot_layout(ncol = 2, heights = c(0.2,0.7),widths = c(0.8,0.2))
 }
-

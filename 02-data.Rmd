@@ -40,5 +40,3 @@ When we tried to calculate daily growing cases and death from cummulative data, 
 
 
 
-
-

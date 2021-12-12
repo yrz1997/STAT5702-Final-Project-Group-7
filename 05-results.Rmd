@@ -1,9 +1,5 @@
 # Results
 
-```{r,message=FALSE,warning=FALSE}
-source('data/data_preprocessing.R')
-```
-
 ## US time series
 ```{r,warning=FALSE,message=FALSE}
 us_cases <- state_cases %>% group_by(date) %>% summarise(case_grow=sum(case_diff))
@@ -206,12 +202,7 @@ ggplot(df, aes(cases, people_fully_vaccinated, color=state)) +
   
 ```
 
-
-
-
-
-
-
+This scatterplot shows cumulative people fully vaccinated vs. cases in all states. We can easily see the outliers among 50 states. If we see in ratio, there's no significantly high or low states.
 
 
 

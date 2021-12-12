@@ -94,10 +94,13 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1</b> Dataframe after data cleaning</a></li>
-<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing value counts by column</a></li>
-<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.3</b> Missing value counts by row</a></li>
-<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.4</b> Heatmap</a></li>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#us-vaccination"><i class="fa fa-check"></i><b>4.1</b> US vaccination</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1.1</b> Dataframe after data cleaning</a></li>
+<li class="chapter" data-level="4.1.2" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.1.2</b> Missing value counts by column</a></li>
+<li class="chapter" data-level="4.1.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.1.3</b> Missing value counts by row</a></li>
+<li class="chapter" data-level="4.1.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.1.4</b> Heatmap</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
@@ -108,7 +111,10 @@
 <li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
 <li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interactive-component.html"><a href="interactive-component.html#top-5-series-states"><i class="fa fa-check"></i><b>6.1</b> Top 5 series states</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -146,9 +152,9 @@
 <p>The starting date of this dataset is 2021-01-12 and the last day is yesterday.
 The first problem we noticed was that in location, there are many places that are not US states. Like “Bureau of Prisons”,“Dept of Defense”… Therefore, the first step that we did was to filter out these none-states. Then we found a common issue, missing data. We visualized it in missing values chapter and decided to do a backward filling. Because most of these missing values were not continuous, we could simply use the latest values to fill in these missing spots.</p>
 <p>For the cases and death data, the raw data put every day as a column therefore we first converted these columns to rows.</p>
-<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;          
-##  [6] &quot;Admin2&quot;         &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;         
-## [11] &quot;Combined_Key&quot;   &quot;1/22/20&quot;        &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
+<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;           &quot;Admin2&quot;        
+##  [7] &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;          &quot;Combined_Key&quot;   &quot;1/22/20&quot;       
+## [13] &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
 <p>The starting date of this dataset is 2020-01-22 and the last day is yesterday.
 When we tried to calculate daily growing cases and death from cummulative data, we noticed that there were mistakes when collecting these data because some of the growing numbers were negative. We used the same filling method as in vaccination data.</p>
 
