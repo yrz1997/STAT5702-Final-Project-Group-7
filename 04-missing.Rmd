@@ -78,7 +78,38 @@ The barplot on the top is a visualization of 4.2. It shows how many rows contain
 
 As there are not many missing rows, we might remove missing patter 2, 4, 5, and 7 as over 50% of the features are missing. For pattern 3 and 6, we can use mean or median to fill the missing values. 
 
+## COVID-19_Hospital_Capacity
 
+In order to see if there is any state has large number of missing values, missing table was built based on the data set before transformation. Below is the first five rows of the missing-value table. It counts the number of missing value in each feature for each state. According to the table, it indicates that there is no state that has more than half of its records are missing value. Therefore, for total_beds, total_icu_beds, aud_conf and ped_conf, choose the average value of these features in each state to replace the missing value. 
+
+```{r}
+source('data/hospital_preprocessing.R')
+```
+
+```{r}
+# number of records for each state
+state_count<-hospital_capacity_selected %>% group_by(state) %>% count(state)
+
+# build missing table by state
+df_na <- data.frame(is.na(hospital_capacity_selected))
+df_na$state<-hospital_capacity_selected$state
+agg <- aggregate(df_na[-3], df_na['state'],sum)
+
+missing_table<-mutate(agg,state_count)
+head(missing_table)
+
+
+```
+## COVID-19_Case_Death
+
+This is the missing value counts by different features for COVID-19_Case_Death data-set. According to this table, we can see that there is no missing value for this data-set.
+
+```{r}
+aa <- colSums(is.na(case_death_selected)) %>%  sort(decreasing = TRUE)
+result_col <- data.frame(num_missing = aa)
+result_col
+
+```
 
 
 

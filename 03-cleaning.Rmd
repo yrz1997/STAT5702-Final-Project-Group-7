@@ -30,6 +30,94 @@ head(state_cases)
 head(state_death)
 ```
 
+## Relationship between morbidity and mortality and hospital capacity
+In order to see the relationship, two data-set 'COVID-19-Reported-Patient-Impact-and-Hospital-Capa' and 'United-States-COVID-19-Cases-and-Deaths-by-State' are used.
+
+### COVID-19_Hospital_Capacity
+
+Hospital capacity:
+1. replace -999999 with 2
+2. select useful features
+3. rename columns with shorter column names 
+4. fill NA by using mean value for each feature in each state
+5. group all records for each hospital to calculate each hospital's average number of beds and icu beds in the time period
+6. group all hospital records for each state to calculate the total confirmed COVID-19 cases in that state during the time period
+
+```{r}
+source('data/hospital_preprocessing.R')
+```
+
+Dataframes after transformation:
+```{r}
+# fill NA by using mean value for each feature in each state
+impute_mean <- function(x) replace(x, is.na(x), round(mean(x, na.rm = TRUE)))
+hospital_capacity_selected_fill <- ddply(hospital_capacity_selected, ~ state, transform, total_beds = impute_mean(total_beds),
+     total_icu_beds = impute_mean(total_icu_beds),adu_conf = impute_mean(adu_conf),ped_conf = impute_mean(ped_conf))
+```
+
+```{r}
+hospital_area=hospital_capacity_selected_fill[!duplicated(hospital_capacity_selected_fill$hospital_pk), ]
+hospital_area=hospital_area[,c('hospital_pk','state')]
+hospital_each <- hospital_capacity_selected_fill %>% group_by(hospital_pk) %>% summarize_if(is.numeric,mean,na.rm = TRUE)
+hospital_each=hospital_each[,c('hospital_pk','total_beds','total_icu_beds')]
+hospital_each<-merge(hospital_each,hospital_area,by="hospital_pk")
+hospital_each['total_beds']=round(hospital_each['total_beds'])
+hospital_each['total_icu_beds']=round(hospital_each['total_icu_beds'])
+hospital_each <- hospital_each %>% group_by(state) %>% summarize_if(is.numeric,sum,na.rm = TRUE)
+
+
+hospital_state <- hospital_capacity_selected_fill %>% group_by(state) %>% summarize_if(is.numeric,sum,na.rm = TRUE)
+hospital_state['total_beds']=hospital_each['total_beds']
+hospital_state['total_icu_beds']=hospital_each['total_icu_beds']
+summary(hospital_state)
+```
+
+After the transformation, there are 56 observations with 5 features, each record represents one state in the United States.
+
+
+### COVID-19_Case_Death
+
+Death case:
+1. convert type of submission_date to date 
+2. select date which is in the same range as COVID-19 hospital capacity data-set
+3. select useful features
+4. add column 'population' by state
+5. keep the record with latest date for each state as features 'tot_cases' and 'tot_death' are cumulative features
+
+Dataframes after transformation:
+```{r}
+case_state <- case_death_selected [case_death_selected $submission_date==end_date_hos,]
+summary(case_state )
+```
+
+After the selection, there are 52 records with 5 features. Each record represents one state in the United States.
+
+### Merge
+
+In order to see the relationship between hospital capacity and death rate of COVID-19, added new columns which would represents the death rate, total number of confirmed inpatients, hospitalization rate and percentage of total beds in population for each state. 
+
+```{r}
+hospital_case<-merge(hospital_state,case_state,by="state")
+
+# remove date column
+hospital_case<-hospital_case[,-grep("submission_date",colnames(hospital_case))]
+
+# calculate death rate for each state
+hospital_case['death_rate']<-hospital_case$tot_death/hospital_case$tot_cases
+
+# calculate total number of confirmed inpatient for each state
+hospital_case['tot_confi_inpatient']<-hospital_case$adu_conf+hospital_case$ped_conf
+
+# calculate the hospitalization rate for each state
+hospital_case['inhospi_rate']<-hospital_case$tot_confi_inpatient/hospital_case$tot_cases
+
+# calculate the percentage of number of beds in total population for each state
+hospital_case['beds_perc']<-(hospital_case$total_beds+hospital_case$total_icu_beds)/hospital_case$population
+
+summary(hospital_case)
+```
+
+So the final data-set after transformation will have 52 observations with 12 features.
 
 
 

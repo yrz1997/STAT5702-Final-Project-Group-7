@@ -1,4 +1,6 @@
 library(readr)
+library(plyr)
+library(dplyr)
 library(tidyverse)
 library(tibble)
 library(ggplot2)
@@ -10,8 +12,8 @@ library(tmap)
 library(tmaptools) 
 library(tigris)          
 library(sf)
-library(readr)
-library(dplyr)
+
+
 
 
 day <- "2021-12-09"
