@@ -4,9 +4,68 @@
 source('data/data_preprocessing.R')
 ```
 
+## US time series
+```{r,warning=FALSE,message=FALSE}
+us_cases <- state_cases %>% group_by(date) %>% summarise(case_grow=sum(case_diff))
+us_vacc <- state_vaccination %>% group_by(date) %>% summarise(vacc_grow=sum(vacc_diff))
+df <- inner_join(us_cases,us_vacc,by='date')
+
+p1 <- ggplot(df,aes(x=date, y= case_grow)) +
+  geom_line(size=1,color='red1',show.legend = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(y='Case Growth') +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+
+p2 <- ggplot(df,aes(x=date, y= vacc_grow)) +
+  geom_line(size=1,color='springgreen4',show.legend = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(y='Vaccinated Growth') +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+
+p1 + p2 + plot_layout(ncol = 1) + plot_annotation(title='US Time Series')
+```
+
+This graph shows the time series of confirmed cases growth and people vaccinated growth. It's obvious that when people vaccinated growth number is high, confirmed cases growth speed decreases and when people vaccinated low, confirmed cases increases again. This plot confirms that vaccination helps to prevent covid spread. 
+
+## US cumulative cases
+```{r,message=FALSE,warning=FALSE}
+us_geo <- tigris::states(class = "sf") 
+df <- state_cases[state_cases$date == day,]
+shape_obj <- left_join(us_geo, df, by=c('NAME'='state')) %>% 
+  filter(REGION != 9) %>% 
+  filter(NAME != 'District of Columbia')
+
+us_map <- tm_shape(shape_obj) +
+  tm_polygons('cases',id='Name') +
+  tm_layout(main.title=paste('Total Cases On ',day),
+            main.title.position = "left",
+            main.title.size = 1)
+
+dff <- state_cases_raw %>% 
+  select(UID:Combined_Key,'12/9/21')
+
+dff_sf <- st_as_sf(dff,coords=c('Long_','Lat'),crs=4326)
+
+tmap_mode('view')
+
+tm_shape(shape_obj) +
+  tm_polygons('cases',id='Name') +
+  tm_layout(main.title=paste('Total Cases On ',day),
+            main.title.position = "left",
+            main.title.size = 1,
+            legend.outside = TRUE,
+            legend.position = c("left", "top")) +  
+tm_shape(dff_sf) +
+  tm_symbols(col='red',size='12/9/21',scale=1) 
+```
+
+This is a map that shows cumulative confirmed cases in United States on 12/9/2021. Red points mean confirmed cases and the size represents exact number. The higher the number, the larger the spot. We can see that large cities are serious spots. This graph gives us a general view of current covid situation.
+
 ## Latest cummulative cases and deaths
 ```{r}
-day <- min(max(state_cases$date),max(state_death$date),max(state_vaccination$date))
+# day <- min(max(state_cases$date),max(state_death$date),max(state_vaccination$date))
 
 ggplot(state_cases[state_cases$date==day,],aes(reorder(state,cases),cases)) +
   geom_bar(stat='identity',color='black',fill='skyblue') +
@@ -19,6 +78,36 @@ ggplot(state_death[state_death$date==day,],aes(reorder(state,death),death)) +
   coord_flip() +
   labs(x='State',y='Total Death',title=paste('Total Death On ',day)) +
   theme_bw()
+
+# df1 <- state_cases[state_cases$date==day,] %>% mutate(type='cases',value=cases)
+# df2 <- state_death[state_death$date==day,] %>% mutate(type='death',value=death)
+# df <- rbind(df1,df2)
+# 
+# df2 <- df %>% filter(type=='cases') %>% arrange(value)
+# the_order <- df2$state
+# 
+# ggplot(df,aes(x = state, y = value, group = type, fill = type)) +
+#   geom_bar(stat = "identity", width = 0.75) +
+#   coord_flip() +
+#   scale_x_discrete(limits = the_order) +
+#   scale_y_continuous(breaks = seq(-5000000, 80000, 1000000), 
+#                      labels = abs(seq(-5000000, 80000, 1000000))) +
+#   labs(x = "State", y = "Count", title = "Back-to-back bar chart") +
+#   theme(legend.position = "bottom",
+#         legend.title = element_blank(),
+#         plot.title = element_text(hjust = 0.5),
+#         panel.background = element_rect(fill =  "grey90")) +
+#   scale_fill_manual(values=c("red", "blue"),
+#                     name="",
+#                     breaks=c("Case", "Death"),
+#                     labels=c("Case", "Death"))
+# 
+# ggplot(df, aes(x=state, y= value, fill=type)) + 
+#     facet_wrap(~ type, scales = "free_x") + 
+#     geom_col() + 
+#     coord_flip() +
+#     scale_y_continuous(expand = c(0, 0)) +
+#     theme(panel.spacing.x = unit(0, "mm"))
 ```
 
 The graphs above shows current confirmed cases and death of 50 states. We can see that California, Texas, Florida, New York, and Illinois are top 5 states with most confirmed cases. California, Texas, Florida, New York, and Pennsylvania are top 5 states with most deaths. 
@@ -67,34 +156,39 @@ states <- c('California', 'Texas', 'Florida', 'New York', 'Pennsylvania')
 df <- inner_join(inner_join(state_vaccination,state_cases,by=c('date','state')),state_death) %>%
   select(date,state,people_vaccinated,vacc_diff,people_fully_vaccinated,fully_vacc_diff,cases,case_diff,death,death_diff) %>%
   filter(state %in% states) 
+df <- subset(df,vacc_diff < 500000)
   
 p1 <- ggplot(df, aes(x=date, y= case_diff)) +
   geom_line(aes(color=state),size=1,show.legend = FALSE) +
-  theme_minimal() +
   theme(legend.position = "none") +
-  labs(y='Case Growth')
+  labs(y='Case') +
+  theme_minimal() +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
 
 p2 <- ggplot(df, aes(x=date, y= death_diff)) +
   geom_line(aes(color=state),size=1,show.legend = FALSE) +
-  theme_minimal() +
   theme(legend.position = "none") +
-  labs(y='Death Growth')
+  labs(y='Death') +
+  theme_minimal() +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
 
 p3 <- ggplot(df, aes(x=date, y= vacc_diff)) +
   geom_line(aes(color=state),size=1) +
+  labs(y='Vaccinated') +
   theme_minimal() +
-  labs(y='Vacc Growth')
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
 
 p4 <- ggplot(df, aes(x=date, y= fully_vacc_diff)) +
   geom_line(aes(color=state),size=1,show.legend = FALSE) +
   theme_minimal() +
   theme(legend.position = "none") +
-  labs(y='Fully Vacc Growth')
+  labs(y='Fully Vaccinated') +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
 
-p1 + p2 + p3 + p4 + plot_layout(ncol = 1) + plot_annotation(title='Time Series')
+p1 + p2 + p3 + p4 + plot_layout(ncol = 1) + plot_annotation(title='Growth Time Series')
 ```
 
-There is a significant outlier in people_vaccinated daily growth graph. Because from October 2nd to November 28th, the people_vaccinated information in Pennsylvania is missing. We are doing a filling by pervious data, therefore the huge spike is false.
+There is a significant outlier in original people_vaccinated daily growth graph. Because from October 2nd to November 28th, the people_vaccinated information in Pennsylvania is missing. We are doing a filling by pervious data, therefore there exists a huge pike. We have to delete the data of that day.
 
 ## Distribution
 ```{r,warning=FALSE,message=FALSE}
@@ -104,12 +198,16 @@ df <- inner_join(inner_join(state_vaccination,state_cases,by=c('date','state')),
 
 ggplot(df, aes(cases, people_fully_vaccinated, color=state)) +
   geom_point(show.legend = FALSE) +
+  geom_smooth(method=lm,se=FALSE) +
   geom_text(aes(label=state),size=2.6,hjust=0,vjust=0) +
   theme_bw() +
   theme(legend.position = "none") +
   labs(x='Cases',y='People Fully Vaccinated',title=paste('Vaccination vs. Cases Scatterplot On ',day))
   
 ```
+
+
+
 
 
 
