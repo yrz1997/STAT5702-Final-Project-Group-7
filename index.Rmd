@@ -8,5 +8,13 @@ always_allow_html: yes
 
 # Introduction
 
+Beginning in 2020, COVID-19 has begun to spread all over the world. People equated it with the flu from the beginning, and later became more and more aware of the harm caused by this virus. Over time, although people have begun to develop vaccines to minimize the spread of COVID-19, COVID-19 is constantly mutating. Every day there are new infections and deaths.
+
+Therefore, in this project, we would like to study some issues about COVID-19. Specifically, this is mainly divided into three parts. The first part is the impact of the vaccination and the spread of the epidemic. The second part mainly studies the relationship between hospital capacity and mortality.The last part of the study is.....
+
+In the first part, analysis are based on the data collected from the United States. With knowledge that after vaccination started in United States, cases and death dropped significantly at the beginning, but after a while, a turning point appeared and now the cases are increasing just like before vaccination. The analysis will be done for the impact of Coronavirus vaccination on the prevalence and mortality.
 
 
+The second part uses data distributed by states in the United States. It mainly includes the number of hospital beds in each state, the diagnosis rate in a specific time period, the rate of consultations and the mortality rate. So it can be analysed that whether there is a relationship between hospital capacity and mortality, and the relationship between hospitalization and mortality.
+
+The last part....
