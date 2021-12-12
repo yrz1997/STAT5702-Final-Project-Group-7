@@ -83,7 +83,7 @@ As there are not many missing rows, we might remove missing patter 2, 4, 5, and 
 In order to see if there is any state has large number of missing values, missing table was built based on the data set before transformation. Below is the first five rows of the missing-value table. It counts the number of missing value in each feature for each state. According to the table, it indicates that there is no state that has more than half of its records are missing value. Therefore, for total_beds, total_icu_beds, aud_conf and ped_conf, choose the average value of these features in each state to replace the missing value. 
 
 ```{r}
-source('data/hospital_preprocessing.R')
+#source('data/hospital_preprocessing.R')
 ```
 
 ```{r}
