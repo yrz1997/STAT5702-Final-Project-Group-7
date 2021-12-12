@@ -9,6 +9,8 @@ missing-value-counts-by-column
 missing-value-counts-by-row
 heatmap
 results
+us-time-series
+us-cumulative-cases
 latest-cummulative-cases-and-deaths
 latest-vaccination-situation
 time-series-of-serious-states

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 US cumulative cases | United States Covid Project</title>
+  <meta name="description" content="Chapter 6 US cumulative cases | United States Covid Project" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 US cumulative cases | United States Covid Project" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 US cumulative cases | United States Covid Project" />
+  
+  
+  
+
+<meta name="author" content="Ruize Yu, Jiazhen Li, Wenxin Zhang" />
+
+
+<meta name="date" content="2021-12-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="results.html"/>
+<link rel="next" href="interactive-component.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">US Covid</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#vaccination-data"><i class="fa fa-check"></i><b>2.1</b> Vaccination data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#vaccination-case-and-death-data"><i class="fa fa-check"></i><b>3.1</b> Vaccination, case, and death data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataframe-after-data-cleaning"><i class="fa fa-check"></i><b>4.1</b> Dataframe after data cleaning</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing value counts by column</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.3</b> Missing value counts by row</a></li>
+<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.4</b> Heatmap</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#us-time-series"><i class="fa fa-check"></i><b>5.1</b> US time series</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="us-cumulative-cases.html"><a href="us-cumulative-cases.html"><i class="fa fa-check"></i><b>6</b> US cumulative cases</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="us-cumulative-cases.html"><a href="us-cumulative-cases.html#latest-cummulative-cases-and-deaths"><i class="fa fa-check"></i><b>6.1</b> Latest cummulative cases and deaths</a></li>
+<li class="chapter" data-level="6.2" data-path="us-cumulative-cases.html"><a href="us-cumulative-cases.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>6.2</b> Latest vaccination situation</a></li>
+<li class="chapter" data-level="6.3" data-path="us-cumulative-cases.html"><a href="us-cumulative-cases.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>6.3</b> Time series of serious states</a></li>
+<li class="chapter" data-level="6.4" data-path="us-cumulative-cases.html"><a href="us-cumulative-cases.html#distribution"><i class="fa fa-check"></i><b>6.4</b> Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>7</b> Interactive component</a></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">United States Covid Project</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="us-cumulative-cases" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> US cumulative cases</h1>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div id="latest-cummulative-cases-and-deaths" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Latest cummulative cases and deaths</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-70-2.png" width="672" /></p>
+<p>The graphs above shows current confirmed cases and death of 50 states. We can see that California, Texas, Florida, New York, and Illinois are top 5 states with most confirmed cases. California, Texas, Florida, New York, and Pennsylvania are top 5 states with most deaths.</p>
+</div>
+<div id="latest-vaccination-situation" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Latest vaccination situation</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-71-1.png" width="864" /></p>
+<p>As there are 12 features in our vaccination data, we use a correlation heatmap to select the most relevant features to confirmed cases and deaths. From the graph above we can see the top 4 features are total vaccinations, total distributed, people vaccinated, and people fully vaccinated. We will use people vaccinated and people fully vaccinated as two features to represent vaccination.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p>The 5 states with most deaths also have the largest number of people vaccinated. However, none of them are on top of the list of people fully vaccinated.</p>
+</div>
+<div id="time-series-of-serious-states" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Time series of serious states</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>There is a significant outlier in original people_vaccinated daily growth graph. Because from October 2nd to November 28th, the people_vaccinated information in Pennsylvania is missing. We are doing a filling by pervious data, therefore there exists a huge pike. We have to delete the data of that day.</p>
+</div>
+<div id="distribution" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Distribution</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<pre><code>## # A tibble: 10 x 4
+##     time valueA valueB valueC
+##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1     1      2      5     13
+##  2     2      3      4     14
+##  3     3      1      4     16
+##  4     4      7      4     12
+##  5     5      8      8      7
+##  6     6      8     13      9
+##  7     7      5     15      3
+##  8     8      4     17      2
+##  9     9      9     18      1
+## 10    10     11     13      1</code></pre>
+<pre><code>## # A tibble: 689 x 6
+##    date       California Florida `New York` Pennsylvania Texas
+##    &lt;date&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;
+##  1 2020-01-22          0       0          0            0     0
+##  2 2020-01-23          0       0          0            0     0
+##  3 2020-01-24          0       0          0            0     0
+##  4 2020-01-25          0       0          0            0     0
+##  5 2020-01-26          2       0          0            0     0
+##  6 2020-01-27          0       0          0            0     0
+##  7 2020-01-28          0       0          0            0     0
+##  8 2020-01-29          0       0          0            0     0
+##  9 2020-01-30          0       0          0            0     0
+## 10 2020-01-31          1       0          0            0     0
+## # ... with 679 more rows</code></pre>
+<script src="https://d3js.org/d3.v6.js"></script>
+<div id="my_dataviz">
+
+</div>
+<script>
+
+// set the dimensions and margins of the graph
+const margin = {top: 10, right: 100, bottom: 30, left: 30},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+const svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",`translate(${margin.left},${margin.top})`);
+
+//Read the data
+d3.csv("df.csv").then(function(data) {
+
+    // List of groups (here I have one group per column)
+    const allGroup = ["California", "Florida", "New York"]
+
+    // Reformat the data: we need an array of arrays of {x, y} tuples
+    const dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+      return {
+        name: grpName,
+        values: data.map(function(d) {
+          return {time: d.time, value: +d[grpName]};
+        })
+      };
+    });
+    // I strongly advise to have a look to dataReady with
+    // console.log(dataReady)
+
+    // A color scale: one color for each group
+    const myColor = d3.scaleOrdinal()
+      .domain(allGroup)
+      .range(d3.schemeSet2);
+
+    // Add X axis --> it is a date format
+    const x = d3.scaleLinear()
+      .domain([0,10])
+      .range([ 0, width ]);
+    svg.append("g")
+      .attr("transform", `translate(0, ${height})`)
+      .call(d3.axisBottom(x));
+
+    // Add Y axis
+    const y = d3.scaleLinear()
+      .domain( [0,20])
+      .range([ height, 0 ]);
+    svg.append("g")
+      .call(d3.axisLeft(y));
+
+    // Add the lines
+    const line = d3.line()
+      .x(d => x(+d.time))
+      .y(d => y(+d.value))
+    svg.selectAll("myLines")
+      .data(dataReady)
+      .join("path")
+        .attr("class", d => d.name)
+        .attr("d", d => line(d.values))
+        .attr("stroke", d => myColor(d.name))
+        .style("stroke-width", 4)
+        .style("fill", "none")
+
+    // Add the points
+    svg
+      // First we need to enter in a group
+      .selectAll("myDots")
+      .data(dataReady)
+      .join('g')
+        .style("fill", d => myColor(d.name))
+        .attr("class", d => d.name)
+      // Second we need to enter in the 'values' part of this group
+      .selectAll("myPoints")
+      .data(d => d.values)
+      .join("circle")
+        .attr("cx", d => x(d.time))
+        .attr("cy", d => y(d.value))
+        .attr("r", 5)
+        .attr("stroke", "white")
+
+    // Add a label at the end of each line
+    svg
+      .selectAll("myLabels")
+      .data(dataReady)
+      .join('g')
+        .append("text")
+          .attr("class", d => d.name)
+          .datum(d => { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+          .attr("transform", d => `translate(${x(d.value.time)},${y(d.value.value)})`) // Put the text at the position of the last point
+          .attr("x", 12) // shift the text a bit more right
+          .text(d => d.name)
+          .style("fill", d => myColor(d.name))
+          .style("font-size", 15)
+
+    // Add a legend (interactive)
+    svg
+      .selectAll("myLegend")
+      .data(dataReady)
+      .join('g')
+        .append("text")
+          .attr('x', (d,i) => 30 + i*60)
+          .attr('y', 30)
+          .text(d => d.name)
+          .style("fill", d => myColor(d.name))
+          .style("font-size", 15)
+        .on("click", function(event,d){
+          // is the element currently visible ?
+          currentOpacity = d3.selectAll("." + d.name).style("opacity")
+          // Change the opacity: from 0 to 1 or from 1 to 0
+          d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0:1)
+
+        })
+})
+</script>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interactive-component.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yrz1997/STAT5702-Final-Project-Group-7/edit/main/05-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/yrz1997/STAT5702-Final-Project-Group-7/blob/main/05-results.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

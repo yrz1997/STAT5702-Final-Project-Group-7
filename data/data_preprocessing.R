@@ -8,6 +8,13 @@ library(reshape2)
 library(patchwork)
 library(ggridges)
 
+library(tmap)            
+library(tmaptools) 
+library(tigris)          
+library(sf)
+
+day <- "2021-12-09"
+
 us_vaccination_url <- 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv'
 
 us_cases_url <- 'https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv?raw=true'
@@ -39,8 +46,12 @@ state_vaccination <- state_vaccination %>%
   group_by(state) %>%
   mutate(vacc_diff = people_vaccinated - lag(people_vaccinated)) %>%
   mutate_at('vacc_diff', ~replace(., is.na(.), 0)) %>%
+  mutate(vacc_diff = replace(vacc_diff, which(vacc_diff < 0), NA)) %>%     # replace negative diff with NA
+  mutate(vacc_diff = na.locf(vacc_diff)) %>%
   mutate(fully_vacc_diff = people_fully_vaccinated - lag(people_fully_vaccinated)) %>%
-  mutate_at('fully_vacc_diff', ~replace(., is.na(.), 0))
+  mutate_at('fully_vacc_diff', ~replace(., is.na(.), 0)) %>%
+  mutate(fully_vacc_diff = replace(fully_vacc_diff, which(fully_vacc_diff < 0), NA)) %>%     # replace negative diff with NA
+  mutate(fully_vacc_diff = na.locf(fully_vacc_diff))
 
 state_cases <- state_cases_raw %>% 
   select(Province_State,12:dim(state_cases_raw)[2]) %>%
