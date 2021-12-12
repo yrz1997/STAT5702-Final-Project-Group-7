@@ -44,7 +44,7 @@ Hospital capacity:
 6. group all hospital records for each state to calculate the total confirmed COVID-19 cases in that state during the time period
 
 ```{r}
-source('data/hospital_preprocessing.R')
+#source('data/hospital_preprocessing.R')
 ```
 
 Dataframes after transformation:
