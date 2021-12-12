@@ -97,7 +97,7 @@ state_count<-hospital_capacity_selected %>% group_by(state) %>% count(state)
 # build missing table by state
 df_na <- data.frame(is.na(hospital_capacity_selected))
 df_na$state<-hospital_capacity_selected$state
-agg <- aggregate(df_na[-2], df_na['state'],sum)
+agg <- aggregate(df_na[-3], df_na['state'],sum)
 
 missing_table<-mutate(agg,state_count)
 head(missing_table)

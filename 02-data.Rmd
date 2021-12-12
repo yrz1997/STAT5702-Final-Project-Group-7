@@ -33,13 +33,11 @@ When we tried to calculate daily growing cases and death from cummulative data, 
 source('data/hospital_preprocessing.R')
 ```
 
-Source: https://healthdata.gov/Hospital/COVID-19-Reported-Patient-Impact-and-Hospital-Capa/anag-cw7u/data
-
 This data-set provides facility-level data for hospital utilization aggregated on a weekly basis (Friday to Thursday) in the time period from 2020-07-31 to 2021-11-26. It is mainly collected from two sources: (1) HHS TeleTracking, and (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities.
 
-There are 106 features with 309719 records in the original data-set, but not all of those features are useful for our analysis, so we only select 8 specific features from 106 original features. These selected features including date, state, capacities of hospitals and number of hospitalized patients who are confirmed with COVID-19. 
+There are 106 features with 309719 records in the original data-set, but not all of those features are useful for our analysis, so we only select 6 specific features from 106 original features. These selected features including date, state, capacities of hospitals and number of hospitalized patients who are confirmed with COVID-19. 
 
-We also noticed that there is value -999999 in data-set which is not a reasonable value. Replacing -999999 with 2, since it represents sums and averages less than four, so use average to replace that.
+We also noticed that there is value -999999 in data-set which is not a reasonable value. Replacing -999999 with 2 since it represents sums and averages less than four, so use average to replace that. Because we want to compare the information between states, so group the data-set by state is also needed. Moreover, as the summary of the data-set shows below, there are missing values in features. Therefore, we also need to handle the NA values in the later process.
 
 ```{r}
 #summary of data-set
@@ -50,11 +48,10 @@ summary(hospital_capacity_selected)
 
 ## United-States-COVID-19-Cases-and-Deaths-by-State
 
-Source: https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36/data
 
 This data-set is collected by CDC, which includes counts of COVID-19 cases and death numbers daily in the time period form 2020-01-22 to 2021-12-07. CDC collects and organizes these data based on these most recent numbers reported by states, territories, and other jurisdictions. There are 41160 records with 15 features in the original data-set, and each record represents a specific date for a specific state. We only keep 3 features which are state, total number of cases and total number of death for our further analysis.
 
-Because we want to merge this data-set with 'COVID-19-Reported-Patient-Impact-and-Hospital-Capa', so it is important to make sure they are in the same time period. Since the time range for 'COVID-19-Reported-Patient-Impact-and-Hospital-Capa' is smaller, so the subset of original data-set is generated with the time period from 2020-07-31 to 2021-11-26. The sub data-set has 29040 records with 3 features. Note that for the features 'tot_cases' and 'tot_death', they are cumulative features during the time period.
+Because we want to merge this data-set with 'COVID-19-Reported-Patient-Impact-and-Hospital-Capa', so it is important to make sure they are in the same time period. Since the time range for 'COVID-19-Reported-Patient-Impact-and-Hospital-Capa' is smaller, so the subset of original data-set is generated with the time period from 2020-07-31 to 2021-11-26. The sub data-set has 29040 records with 3 features. Note that for the features 'tot_cases' and 'tot_death', they are cumulative features during the time period. Moreover, to compare between state, we add population column to calculate the percentage.
 
 ```{r}
 #summary of data-set

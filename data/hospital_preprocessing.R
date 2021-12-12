@@ -16,11 +16,11 @@ hospital_capacity<-read_csv(url(hospital_capacity_url))
 hospital_capacity=data_frame(hospital_capacity)
 hospital_capacity[hospital_capacity==-999999]=2
 
-selected_features<-c("collection_week","state","total_beds_7_day_sum",
+selected_features<-c("hospital_pk","collection_week","state","total_beds_7_day_sum",
                      "total_adult_patients_hospitalized_confirmed_covid_7_day_sum",
                      "total_pediatric_patients_hospitalized_confirmed_covid_7_day_sum","total_icu_beds_7_day_sum")
 hospital_capacity_selected<-hospital_capacity[,selected_features]
-col_names<-c("colle_week","state","total_beds",
+col_names<-c("hospital_pk","colle_week","state","total_beds",
              "adu_conf",
              "ped_conf","total_icu_beds" )
 names(hospital_capacity_selected)<-col_names

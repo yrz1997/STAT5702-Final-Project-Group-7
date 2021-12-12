@@ -113,28 +113,18 @@ ggplot(df, aes(cases, people_fully_vaccinated, color=state)) +
 
 
 
-## percentage of number of beds in population and death rate
+## Percentage of number of beds in population VS death rate
 ```{r}
+
 ggplot(hospital_case, aes(beds_perc, death_rate)) + 
-  geom_point(size=1) +
+  geom_point(size=0.8,alpha=0.7) +
   geom_smooth(method = "lm",formula= y~x, se = FALSE,alpha = .05,size=0.4)+
   theme_bw() +
-  ggtitle("Scatter Plot for beds VS death rate")
+  labs(x='percentage of beds in population',y='death rate',title='Scatter Plot for beds VS death rate ')
 
 ```
-No clear trend occurs. It may indicates that there is no strong relationship between percentage of number of beds in population and death rate.
 
-
-## percentage of number of icu beds in population and death rate
-
-```{r}
-ggplot(hospital_case, aes(icu_beds_perc, death_rate)) + 
-  geom_point(size=1) +
-  geom_smooth(method = "lm",formula= y~x, se = FALSE,alpha = .05,size=0.4)+
-  ggtitle("Scatter Plot for icu beds VS death rate")
-
-```
-There is a more clear trend between total number of icu hospital beds and death rate. As number of beds increase, there is an increase trend in the value of death rate.
+According to the graph, there is no clear trend between the percentage of beds inn population and the death rate. Especially when we ignore the state which has more than 0.035. It’s different from what we initially imagined, when capacity of hospital in a state increase, the mortality rate will drop. It may cause by several reasons. The first reason may be due to inaccurate mortality. Because the symptoms of COVID-19 are similar to those of flu, many people will mistakenly think that they are flu instead of COVID-19, leading to deviations in statistical data. The second possibility is that there are other factors, such as the number of ventilators or whether the isolation measures are effective. These are also factors that can affect mortality. 
 
 ## inpatient rate and death rate
 
@@ -142,11 +132,12 @@ There is a more clear trend between total number of icu hospital beds and death 
 ggplot(hospital_case, aes(inhospi_rate, death_rate)) + 
   geom_point(size=1) +
   geom_smooth(method = "lm",formula= y~x, se = FALSE,alpha = .05,size=0.4)+
-  ggtitle("Scatter Plot for tinpatient rate VS death rate")
+  theme_bw() +
+  labs(x='inpatient rate',y='death rate',title='Scatter Plot for inpatient rate VS death rate ')
 
 ```
 
-Death rate increase as the inpatient rate. Two possible explanations. The first one is people would not go to hospital unless they are in very bad situation. Thus as the number of impatient increase, death rate increase. The second explanation is consider about the time range. There is no very useful way to cure COVID-19 patient. Thus as inpatient number increase, death rate increase. 
+Form the above graph, we can see that death rate increase as the inpatient rate increases. There are two possible explanations. The first one is people would not go to hospital unless they are in very bad situation. Thus as the number of impatient increase, death rate increase. The second explanation is consider about the time range. There is no very useful way to cure COVID-19 patient. Thus as inpatient number increase, death rate increase. 
 
 
 
