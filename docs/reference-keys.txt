@@ -22,7 +22,7 @@ life-expectancy-data-1
 results
 impact-of-the-vaccination-on-the-spread-of-the-epidemic
 impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate
-impact-of-the
+impact-of-covid-on-life-expectancy
 interactive-component
 top-5-series-states
 conclusion

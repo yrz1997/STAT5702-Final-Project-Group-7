@@ -231,7 +231,7 @@ ggplot(hospital_case, aes(inhospi_rate, death_rate)) +
 
 Form the above graph, we can see that death rate increase as the hospitalization rate increases. There are two possible explanations. The first one is people would not go to hospital unless they are in very bad situation. Thus as the number of impatient increase, death rate increase. The second explanation is consider about the time range. There is no very useful way to cure COVID-19 patient in that time period. Thus there is a positive relationship between inpatient number and death rate. 
 
-## Impact of the
+## Impact of COVID on life expectancy
 ```{r,message=FALSE,warning=FALSE}
 data_f<-data%>%
   filter(continent != "NA")
