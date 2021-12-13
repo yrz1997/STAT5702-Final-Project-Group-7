@@ -1,9 +1,7 @@
 This is a template for the EDAV final project. It is based on the template created with *File, New Project..., New Directory, Book Project using bookdown* in RStudio. 
 
 
-## United States Covid Project
-
-*If you have any difficulties or have feedback of any kind, please file an issue.*
+## Covid Project
 
 ### Introduction
  
@@ -18,9 +16,13 @@ This is a template for the EDAV final project. It is based on the template creat
 
 - [ ] 3. Patients' clinical information: https://gis.cdc.gov/grasp/COVIDNet/COVID19_5.html
 
-### Demo Video	
+- [ ] 4. United States CDC
 
-A demo video showing how to create a **bookdown book** following these similar instructions: http://bit.ly/fiveminutebookdown Note that this video uses a different template.
+### Structure
+
+- [ ] 1. Each session has it's unique .Rmd file.
+
+- [ ] 2. We put some data and data cleaning process in data folder. There are several .csv files and .R files in there.
 
 ### Additional features	
 
