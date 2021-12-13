@@ -1,31 +1,9 @@
 # Results
 
-## US time series
-```{r,warning=FALSE,message=FALSE}
-us_cases <- state_cases %>% group_by(date) %>% summarise(case_grow=sum(case_diff))
-us_vacc <- state_vaccination %>% group_by(date) %>% summarise(vacc_grow=sum(vacc_diff))
-df <- inner_join(us_cases,us_vacc,by='date')
+Before the analysis, we want to show the current situation of spread of COVID-19 in the United States first. All the graphs below are using the data collected on 2021-12-09.
 
-p1 <- ggplot(df,aes(x=date, y= case_grow)) +
-  geom_line(size=1,color='red1',show.legend = FALSE) +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  labs(y='Case Growth') +
-  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+The map below shows the distribution of confirmed cases in the United States. It indicates the cumulative confirmed cases in United States on 12/9/2021. Each red point represents the number of confirmed cases in a city, and the size of the point reflects the relative amount of the exact number. The higher the number, the larger the spot. Form this map, we can see that larger cities are having a larger number of cases. 
 
-p2 <- ggplot(df,aes(x=date, y= vacc_grow)) +
-  geom_line(size=1,color='springgreen4',show.legend = FALSE) +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  labs(y='Vaccinated Growth') +
-  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
-
-p1 + p2 + plot_layout(ncol = 1) + plot_annotation(title='US Time Series')
-```
-
-This graph shows the time series of confirmed cases growth and people vaccinated growth. It's obvious that when people vaccinated growth number is high, confirmed cases growth speed decreases and when people vaccinated low, confirmed cases increases again. This plot confirms that vaccination helps to prevent covid spread. 
-
-## US cumulative cases
 ```{r,message=FALSE,warning=FALSE}
 us_geo <- tigris::states(class = "sf") 
 df <- state_cases[state_cases$date == day,]
@@ -34,7 +12,7 @@ shape_obj <- left_join(us_geo, df, by=c('NAME'='state')) %>%
   filter(NAME != 'District of Columbia')
 
 us_map <- tm_shape(shape_obj) +
-  tm_polygons('cases',id='Name')
+  tm_polygons('cases',id='Name') 
 
 dff <- state_cases_raw %>% 
   select(UID:Combined_Key,'12/9/21')
@@ -49,9 +27,8 @@ tm_shape(dff_sf) +
   tm_symbols(col='red',size='12/9/21',scale=1) 
 ```
 
-This is a map that shows cumulative confirmed cases in United States on 12/9/2021. Red points mean confirmed cases and the size represents exact number. The higher the number, the larger the spot. We can see that large cities are serious spots. This graph gives us a general view of current covid situation.
+To be more clear, we use the bar chart to show the current cumulative confirmed cases and number of death in 50 states. By comparing these two graphs, it shows that state with more confirmed cases generally has a higher number of death. Form these two graphs, we can see that California, Texas, Florida, New York, and Illinois are top 5 states with most confirmed cases. California, Texas, Florida, New York, and Pennsylvania are top 5 states with most number of deaths. 
 
-## Latest cummulative cases and deaths
 ```{r}
 # day <- min(max(state_cases$date),max(state_death$date),max(state_vaccination$date))
 
@@ -98,10 +75,10 @@ ggplot(state_death[state_death$date==day,],aes(reorder(state,death),death)) +
 #     theme(panel.spacing.x = unit(0, "mm"))
 ```
 
-The graphs above shows current confirmed cases and death of 50 states. We can see that California, Texas, Florida, New York, and Illinois are top 5 states with most confirmed cases. California, Texas, Florida, New York, and Pennsylvania are top 5 states with most deaths. 
+## Impact of the vaccination on the spread of the epidemic
 
+To show the impact of the vaccination and the spread of the epidemic, as there are 12 features in our vaccination data, we first want to find which features have the strong correlation with the number of cases. Therefore, we use a correlation heatmap to select the most relevant features to confirmed cases and deaths. 
 
-## Latest vaccination situation
 ```{r,fig.width=9,fig.height=9,warning=FALSE,message=FALSE}
 df <- inner_join(inner_join(state_vaccination,state_cases[,-4],by=c('date','state')),state_death[,-4])
 df <- df[,c(-1,-2)]
@@ -116,7 +93,8 @@ ggplot(data=melted_cormat,aes(Var1,Var2,fill=value))+
   labs(title = 'Correlation Heat Map of Vaccination Features')
 ```
 
-As there are 12 features in our vaccination data, we use a correlation heatmap to select the most relevant features to confirmed cases and deaths. From the graph above we can see the top 4 features are total vaccinations, total distributed, people vaccinated, and people fully vaccinated. We will use people vaccinated and people fully vaccinated as two features to represent vaccination.
+From the graph above, we can see the top 4 features with highest correlations are total vaccinations, total distributed, people vaccinated, and people fully vaccinated. We will use people vaccinated and people fully vaccinated as two features to represent vaccination. People vaccinated includes both one does vaccination and fully vaccinated data. And fully vaccinated feature only represents the number of people who are fully vaccinated. Below are the bar charts for these two features in 50 states.
+
 
 ```{r}
 df <- state_vaccination[,c(1,2,5,6)]
@@ -135,9 +113,10 @@ p2 <- ggplot(df[df$date == day,],aes(reorder(state, people_fully_vaccinated_per_
 p1 + p2 + plot_annotation(title=paste('Vaccination Situation On ',day))
 ```
 
-The 5 states with most deaths also have the largest number of people vaccinated. However, none of them are on top of the list of people fully vaccinated.
+Form the chart for People vaccinated, it indicates that California, Texas, Florida, New York, and Pennsylvania are top 5 states with most number of vaccination. Which is corresponding to the top 5 states with most number of deaths. This may because the population of these five states are large, which will cause them to become the five states with the highest number of both vaccination and deaths. However, none of them are on top of the list of people fully vaccinated. So it may indicate that one does vaccination can not effectively help to stop the spread of the epidemic, but fully vaccination can achieve this.
 
-## Time series of serious states
+To show the relationship between people vaccinated, people fully vaccinated, number of cases and number of death more clearly, we plot the time series graphs for each features for the top 5 states mentioned before, which are California, Texas, Florida, New York, and Pennsylvania.
+
 ```{r,warning=FALSE,message=FALSE}
 states <- c('California', 'Texas', 'Florida', 'New York', 'Pennsylvania')
 
@@ -176,27 +155,57 @@ p4 <- ggplot(df, aes(x=date, y= fully_vacc_diff)) +
 p1 + p2 + p3 + p4 + plot_layout(ncol = 1) + plot_annotation(title='Growth Time Series')
 ```
 
-There is a significant outlier in original people_vaccinated daily growth graph. Because from October 2nd to November 28th, the people_vaccinated information in Pennsylvania is missing. We are doing a filling by pervious data, therefore there exists a huge pike. We have to delete the data of that day.
+In the original graph, there is a significant outlier in people_vaccinated daily growth graph. That is because from October 2nd to November 28th, the people_vaccinated information in Pennsylvania is missing. Although we tried to fill it by previous data, there still exists a unreasonable huge pike. Therefore, we delete the data of that time period. But after the cleaning of data, we can see in the graph that as the number of vaccinations is in an increasing trend, the number of confirmed cases and death will growth in a decreasing rate. And when the number of vaccinations is keeping in a low number, although in the short run, the number of confirmed cases and death will also keep in a low increasing rate, in the long run, it will increase and even achieve a highest point.
 
-## Distribution
+To show this trend more clearly, instead of only focusing on the data of these top five state, we will use the data for the United States. The graph below shows the time series of confirmed cases growth and people vaccinated growth in the United States. 
+
 ```{r,warning=FALSE,message=FALSE}
-df <- inner_join(inner_join(state_vaccination,state_cases,by=c('date','state')),state_death) %>%
-  select(date,state,people_vaccinated,vacc_diff,people_fully_vaccinated,fully_vacc_diff,cases,case_diff,death,death_diff) %>%
-  filter(date == day)
+us_cases <- state_cases %>% group_by(date) %>% summarise(case_grow=sum(case_diff))
+us_vacc <- state_vaccination %>% group_by(date) %>% summarise(vacc_grow=sum(vacc_diff))
+df <- inner_join(us_cases,us_vacc,by='date')
 
-ggplot(df, aes(cases, people_fully_vaccinated, color=state)) +
-  geom_point(show.legend = FALSE) +
-  geom_smooth(method=lm,se=FALSE) +
-  geom_text(aes(label=state),size=2.6,hjust=0,vjust=0) +
-  theme_bw() +
+p1 <- ggplot(df,aes(x=date, y= case_grow)) +
+  geom_line(size=1,color='red1',show.legend = FALSE) +
+  theme_minimal() +
   theme(legend.position = "none") +
-  labs(x='Cases',y='People Fully Vaccinated',title=paste('Vaccination vs. Cases Scatterplot On ',day))
-  
+  labs(y='Case Growth') +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+
+p2 <- ggplot(df,aes(x=date, y= vacc_grow)) +
+  geom_line(size=1,color='springgreen4',show.legend = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(y='Vaccinated Growth') +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE))
+
+p1 + p2 + plot_layout(ncol = 1) + plot_annotation(title='US Time Series')
 ```
 
-This scatterplot shows cumulative people fully vaccinated vs. cases in all states. We can easily see the outliers among 50 states. If we see in ratio, there's no significantly high or low states.
+Form the graph, we can say the similar trend as before. The trend from Jan 2021 to April 2021 shows clearly that when people vaccinated number grew in a high speed, confirmed cases growth speed decreased. For the time period between April 2021 and July 2021, although the number of confirmed cases still decreased as the vaccinated number decreased, it was in a lower decreasing rate compared with the previous time range. This trend was proved in the later time range which is after July 2021. As the number of growth in vaccination was keeping in a low value, the number of confirmed cases turned to increase and reached its highest point in about September 2021. Therefore, this plot confirms that the increase in the number of vaccination will lead to a decrease in the number of confirmed cases, thus, it helps to prevent the COVID-19 spread. 
 
-## Percentage of number of beds in population VS death rate
+```{r,warning=FALSE,message=FALSE}
+#df <- inner_join(inner_join(state_vaccination,state_cases,by=c('date','state')),state_death) %>%
+#  select(date,state,people_vaccinated,vacc_diff,people_fully_vaccinated,fully_vacc_diff,cases,case_diff,death,death_diff) %>%
+#  filter(date == day)
+
+#ggplot(df, aes(cases, people_fully_vaccinated, color=state)) +
+#  geom_point(show.legend = FALSE) +
+#  geom_smooth(method=lm,se=FALSE) +
+#  geom_text(aes(label=state),size=2.6,hjust=0,vjust=0) +
+ # theme_bw() +
+ # theme(legend.position = "none") +
+ # labs(x='Cases',y='People Fully Vaccinated',title=paste('Vaccination vs. Cases Scatterplot On ',day))
+  
+
+#This scatterplot shows cumulative people fully vaccinated vs. cases in all states. We can easily see the outliers among 50 states. If we see in ratio, there's no significantly high or low states.
+```
+
+## Impact of the hospital capacity and inpatient rate on the death rate
+
+In addition to the relationship between vaccines and COVID-19, we also want to see whether the capacity of the hospital and the inpatient rate will have a certain impact on the mortality rate of COVID.
+
+We first plot a scatter plot to show the relationship between capacity of the hospital and the death rate. Because states with more populations will have more hospitals, in order to avoid the impact of different population in each state, we chose to divide the total number of beds in each state by the total population in each state to get the percentage of number of beds in population.
+
 ```{r}
 
 ggplot(hospital_case, aes(beds_perc, death_rate)) + 
@@ -207,22 +216,20 @@ ggplot(hospital_case, aes(beds_perc, death_rate)) +
 
 ```
 
-According to the graph, there is no clear trend between the percentage of beds inn population and the death rate. Especially when we ignore the state which has more than 0.035. It’s different from what we initially imagined, when capacity of hospital in a state increase, the mortality rate will drop. It may cause by several reasons. The first reason may be due to inaccurate mortality. Because the symptoms of COVID-19 are similar to those of flu, many people will mistakenly think that they are flu instead of COVID-19, leading to deviations in statistical data. The second possibility is that there are other factors, such as the number of ventilators or whether the isolation measures are effective. These are also factors that can affect mortality. 
+According to the graph, there is no clear trend between the percentage of beds in population and the death rate. Especially when we ignore the state which has more than 0.035. It’s different from what we initially imagined, when capacity of hospital in a state increase, the mortality rate will drop. It may cause by several reasons. The first reason may be due to inaccurate mortality. Because the symptoms of COVID-19 are similar to those of flu, many people will mistakenly think that they are flu instead of COVID-19, leading to deviations in statistical data. The second possibility is that there are other factors, such as the different in the number of ventilators or the different isolation rules in each state. These are also factors that can affect mortality. Therefore, although from this graph, there is no obvious relationship between the hospital capacity and death rate, we can not give a definite conclusion.
 
-## inpatient rate and death rate
+We then plot a scatter plot to show the relationship between hospitalization rate and the death rate. 
 
 ```{r}
 ggplot(hospital_case, aes(inhospi_rate, death_rate)) + 
   geom_point(size=1) +
   geom_smooth(method = "lm",formula= y~x, se = FALSE,alpha = .05,size=0.4)+
   theme_bw() +
-  labs(x='inpatient rate',y='death rate',title='Scatter Plot for inpatient rate VS death rate ')
+  labs(x='hospitalization rate',y='death rate',title='Scatter Plot for inpatient rate VS death rate ')
 
 ```
 
-Form the above graph, we can see that death rate increase as the inpatient rate increases. There are two possible explanations. The first one is people would not go to hospital unless they are in very bad situation. Thus as the number of impatient increase, death rate increase. The second explanation is consider about the time range. There is no very useful way to cure COVID-19 patient. Thus as inpatient number increase, death rate increase. 
-
-
+Form the above graph, we can see that death rate increase as the hospitalization rate increases. There are two possible explanations. The first one is people would not go to hospital unless they are in very bad situation. Thus as the number of impatient increase, death rate increase. The second explanation is consider about the time range. There is no very useful way to cure COVID-19 patient in that time period. Thus there is a positive relationship between inpatient number and death rate. 
 
 
 

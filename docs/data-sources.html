@@ -114,14 +114,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#us-time-series"><i class="fa fa-check"></i><b>5.1</b> US time series</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#us-cumulative-cases"><i class="fa fa-check"></i><b>5.2</b> US cumulative cases</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#latest-cummulative-cases-and-deaths"><i class="fa fa-check"></i><b>5.3</b> Latest cummulative cases and deaths</a></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>5.4</b> Latest vaccination situation</a></li>
-<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
-<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
-<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#percentage-of-number-of-beds-in-population-vs-death-rate"><i class="fa fa-check"></i><b>5.7</b> Percentage of number of beds in population VS death rate</a></li>
-<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#inpatient-rate-and-death-rate"><i class="fa fa-check"></i><b>5.8</b> inpatient rate and death rate</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -154,19 +148,14 @@
 <h2><span class="header-section-number">2.1</span> Vaccination data</h2>
 <p>We collected vaccination data from an organization called ‘Our World in Data’. They gather vaccination information of United States from official and update the data in a daily basis. The daily cases and death data are gathered from Center for Systems Science and Engineering at John Hopkins University. It’s updated every 24 hours as well.</p>
 <p>For the vaccination data, there are 14 features. The names of them are listed below:</p>
-<pre><code>##  [1] &quot;date&quot;                                &quot;location&quot;                           
-##  [3] &quot;total_vaccinations&quot;                  &quot;total_distributed&quot;                  
-##  [5] &quot;people_vaccinated&quot;                   &quot;people_fully_vaccinated_per_hundred&quot;
-##  [7] &quot;total_vaccinations_per_hundred&quot;      &quot;people_fully_vaccinated&quot;            
-##  [9] &quot;people_vaccinated_per_hundred&quot;       &quot;distributed_per_hundred&quot;            
-## [11] &quot;daily_vaccinations_raw&quot;              &quot;daily_vaccinations&quot;                 
-## [13] &quot;daily_vaccinations_per_million&quot;      &quot;share_doses_used&quot;</code></pre>
+<pre><code>##  [1] &quot;date&quot;                                &quot;location&quot;                            &quot;total_vaccinations&quot;                  &quot;total_distributed&quot;                   &quot;people_vaccinated&quot;                  
+##  [6] &quot;people_fully_vaccinated_per_hundred&quot; &quot;total_vaccinations_per_hundred&quot;      &quot;people_fully_vaccinated&quot;             &quot;people_vaccinated_per_hundred&quot;       &quot;distributed_per_hundred&quot;            
+## [11] &quot;daily_vaccinations_raw&quot;              &quot;daily_vaccinations&quot;                  &quot;daily_vaccinations_per_million&quot;      &quot;share_doses_used&quot;</code></pre>
 <p>The starting date of this dataset is 2021-01-12 and the last day is yesterday.
 The first problem we noticed was that in location, there are many places that are not US states. Like “Bureau of Prisons”,“Dept of Defense”… Therefore, the first step that we did was to filter out these none-states. Then we found a common issue, missing data. We visualized it in missing values chapter and decided to do a backward filling. Because most of these missing values were not continuous, we could simply use the latest values to fill in these missing spots.</p>
 <p>For the cases and death data, the raw data put every day as a column therefore we first converted these columns to rows.</p>
-<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;          
-##  [6] &quot;Admin2&quot;         &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;         
-## [11] &quot;Combined_Key&quot;   &quot;1/22/20&quot;        &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
+<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;           &quot;Admin2&quot;         &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;          &quot;Combined_Key&quot;  
+## [12] &quot;1/22/20&quot;        &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
 <p>The starting date of this dataset is 2020-01-22 and the last day is yesterday.
 When we tried to calculate daily growing cases and death from cummulative data, we noticed that there were mistakes when collecting these data because some of the growing numbers were negative. We used the same filling method as in vaccination data.</p>
 </div>
@@ -175,22 +164,14 @@ When we tried to calculate daily growing cases and death from cummulative data, 
 <p>This data-set provides facility-level data for hospital utilization aggregated on a weekly basis (Friday to Thursday) in the time period from 2020-07-31 to 2021-11-26. It is mainly collected from two sources: (1) HHS TeleTracking, and (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities.</p>
 <p>There are 106 features with 309719 records in the original data-set, but not all of those features are useful for our analysis, so we only select 6 specific features from 106 original features. These selected features including date, state, capacities of hospitals and number of hospitalized patients who are confirmed with COVID-19.</p>
 <p>We also noticed that there is value -999999 in data-set which is not a reasonable value. Replacing -999999 with 2 since it represents sums and averages less than four, so use average to replace that. Because we want to compare the information between states, so group the data-set by state is also needed. Moreover, as the summary of the data-set shows below, there are missing values in features. Therefore, we also need to handle the NA values in the later process.</p>
-<pre><code>##  hospital_pk          colle_week            state             total_beds       adu_conf      
-##  Length:349655      Min.   :2020-07-31   Length:349655      Min.   :    0   Min.   :   0.00  
-##  Class :character   1st Qu.:2020-11-27   Class :character   1st Qu.:  195   1st Qu.:   0.00  
-##  Mode  :character   Median :2021-04-02   Mode  :character   Median :  490   Median :  16.00  
-##                     Mean   :2021-03-30                      Mean   : 1152   Mean   :  73.14  
-##                     3rd Qu.:2021-07-30                      3rd Qu.: 1524   3rd Qu.:  77.00  
-##                     Max.   :2021-11-26                      Max.   :35108   Max.   :9071.00  
-##                                                             NA&#39;s   :1294    NA&#39;s   :2720     
-##     ped_conf        total_icu_beds  
-##  Min.   :-40.0000   Min.   :   0.0  
-##  1st Qu.:  0.0000   1st Qu.:   0.0  
-##  Median :  0.0000   Median :  49.0  
-##  Mean   :  0.9217   Mean   : 152.3  
-##  3rd Qu.:  0.0000   3rd Qu.: 168.0  
-##  Max.   :519.0000   Max.   :5949.0  
-##  NA&#39;s   :3067       NA&#39;s   :2064</code></pre>
+<pre><code>##  hospital_pk          colle_week            state             total_beds       adu_conf          ped_conf        total_icu_beds  
+##  Length:349655      Min.   :2020-07-31   Length:349655      Min.   :    0   Min.   :   0.00   Min.   :-40.0000   Min.   :   0.0  
+##  Class :character   1st Qu.:2020-11-27   Class :character   1st Qu.:  195   1st Qu.:   0.00   1st Qu.:  0.0000   1st Qu.:   0.0  
+##  Mode  :character   Median :2021-04-02   Mode  :character   Median :  490   Median :  16.00   Median :  0.0000   Median :  49.0  
+##                     Mean   :2021-03-30                      Mean   : 1152   Mean   :  73.14   Mean   :  0.9217   Mean   : 152.3  
+##                     3rd Qu.:2021-07-30                      3rd Qu.: 1524   3rd Qu.:  77.00   3rd Qu.:  0.0000   3rd Qu.: 168.0  
+##                     Max.   :2021-11-26                      Max.   :35108   Max.   :9071.00   Max.   :519.0000   Max.   :5949.0  
+##                                                             NA&#39;s   :1294    NA&#39;s   :2720      NA&#39;s   :3067       NA&#39;s   :2064</code></pre>
 </div>
 <div id="united-states-covid-19-cases-and-deaths-by-state" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> United-States-COVID-19-Cases-and-Deaths-by-State</h2>

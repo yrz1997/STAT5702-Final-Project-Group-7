@@ -114,14 +114,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#us-time-series"><i class="fa fa-check"></i><b>5.1</b> US time series</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#us-cumulative-cases"><i class="fa fa-check"></i><b>5.2</b> US cumulative cases</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#latest-cummulative-cases-and-deaths"><i class="fa fa-check"></i><b>5.3</b> Latest cummulative cases and deaths</a></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>5.4</b> Latest vaccination situation</a></li>
-<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
-<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
-<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#percentage-of-number-of-beds-in-population-vs-death-rate"><i class="fa fa-check"></i><b>5.7</b> Percentage of number of beds in population VS death rate</a></li>
-<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#inpatient-rate-and-death-rate"><i class="fa fa-check"></i><b>5.8</b> inpatient rate and death rate</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -149,6 +143,8 @@
             <section class="normal" id="section-">
 <div id="conclusion" class="section level1" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Conclusion</h1>
+<p>The first part is to investigate whether vaccination has an impact on the spread of COVID-19. By analyzing the five states with the largest number of vaccinations, we found that the vaccination rate is inversely related to the spread of the epidemic. This relationship has also been confirmed by national data. From this we can get that vaccination can curb the spread of the epidemic.</p>
+<p>The second part is to analyze the relationship between hospital-related data and mortality. According to analysis, we did not find a clear relationship between hospital capacity and mortality. This may be due to other factors affecting the relationship between these two. So, in order to further analyze, we will collect more hospital-related data, similar to data such as number of ventilators or the number of doctors. Under the control of other variables, we will do further analysis. Regarding the relationship between hospitalization rate and death rate, we found that hospitalization rate and death rate are positively correlated. One possible explanation is that people may only be hospitalized for treatment when they become severely ill. And because there is no specific medicine, it is difficult for severely ill patients to be cured, which leads to a positive correlation.</p>
 <p>In this project, we encountered lots of problems and learned a lot in the process of solving these issues.</p>
 <p>After we got the raw data, missing value was the first problem that we need to deal with. There were lots of techniques to choose to solve missing values, like forward filling, backward filling, fill by means, delete… For different types of features, we used different methods by doing lots of research online. When we were doing data cleaning and transformation, we found that some of the data was wrong when being collected. We had to find means to correct these values.</p>
 <p>When it came to the graphs, things were more complicated. We learned a lot of visualization techniques in this semester’s class and we needed to find the proper graphs to tell our data story. All graphs had to be well-designed and could help to explain the main idea. In the future, we can improve our graphs by using better methods, like putting bar plots side by side. D3 is a powerful technique. We only used a little in this project. It doesn’t require a server to run like shiny app. We can design more interactive graphs that can explain our ideas to our readers better.</p>

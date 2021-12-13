@@ -114,14 +114,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#us-time-series"><i class="fa fa-check"></i><b>5.1</b> US time series</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#us-cumulative-cases"><i class="fa fa-check"></i><b>5.2</b> US cumulative cases</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#latest-cummulative-cases-and-deaths"><i class="fa fa-check"></i><b>5.3</b> Latest cummulative cases and deaths</a></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>5.4</b> Latest vaccination situation</a></li>
-<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
-<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
-<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#percentage-of-number-of-beds-in-population-vs-death-rate"><i class="fa fa-check"></i><b>5.7</b> Percentage of number of beds in population VS death rate</a></li>
-<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#inpatient-rate-and-death-rate"><i class="fa fa-check"></i><b>5.8</b> inpatient rate and death rate</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -161,19 +155,15 @@
 <p>Dataframe after transformation:</p>
 <pre><code>## # A tibble: 6 x 16
 ## # Groups:   state [1]
-##   date       state  total_vaccinatio~ total_distributed people_vaccinat~ people_fully_vaccinat~
-##   &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;                  &lt;dbl&gt;
-## 1 2021-01-13 Alaba~             84040            378975            74792                   0.19
-## 2 2021-01-14 Alaba~             92300            435350            80480                   0.19
-## 3 2021-01-15 Alaba~            100567            444650            86956                   0.28
-## 4 2021-01-16 Alaba~            100567            444650            86956                   0.28
-## 5 2021-01-17 Alaba~            100567            444650            86956                   0.28
-## 6 2021-01-18 Alaba~            100567            444650            86956                   0.28
-## # ... with 10 more variables: total_vaccinations_per_hundred &lt;dbl&gt;,
-## #   people_fully_vaccinated &lt;dbl&gt;, people_vaccinated_per_hundred &lt;dbl&gt;,
-## #   distributed_per_hundred &lt;dbl&gt;, daily_vaccinations_raw &lt;dbl&gt;, daily_vaccinations &lt;dbl&gt;,
-## #   daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;, vacc_diff &lt;dbl&gt;,
-## #   fully_vacc_diff &lt;dbl&gt;</code></pre>
+##   date       state  total_vaccinatio~ total_distributed people_vaccinated people_fully_vacci~ total_vaccinatio~ people_fully_va~ people_vaccinate~ distributed_per~ daily_vaccinati~ daily_vaccinati~
+##   &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 2021-01-13 Alaba~             84040            378975             74792                0.19              1.71             9245              1.53             7.73             5906             5906
+## 2 2021-01-14 Alaba~             92300            435350             80480                0.19              1.88             9245              1.64             8.88             8260             7083
+## 3 2021-01-15 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7478
+## 4 2021-01-16 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7498
+## 5 2021-01-17 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7509
+## 6 2021-01-18 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7517
+## # ... with 4 more variables: daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;, vacc_diff &lt;dbl&gt;, fully_vacc_diff &lt;dbl&gt;</code></pre>
 <p>Case and death:
 1. Filter out non-state, only keep 50 states.
 2. Convert date columns to rows by using dplyr.
@@ -245,27 +235,20 @@
 <div id="merge" class="section level3" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Merge</h3>
 <p>In order to see the relationship between hospital capacity and death rate of COVID-19, added new columns which would represents the death rate, total number of confirmed inpatients, hospitalization rate and percentage of total beds in population for each state.</p>
-<pre><code>##     state             total_beds        adu_conf          ped_conf     total_icu_beds 
-##  Length:52          Min.   :  8840   Min.   :  11101   Min.   :   87   Min.   :  855  
-##  Class :character   1st Qu.: 27725   1st Qu.: 121837   1st Qu.: 1638   1st Qu.: 3929  
-##  Mode  :character   Median : 80142   Median : 308293   Median : 3260   Median : 9940  
-##                     Mean   :111018   Mean   : 490902   Mean   : 6184   Mean   :14642  
-##                     3rd Qu.:136851   3rd Qu.: 583488   3rd Qu.: 7348   3rd Qu.:19071  
-##                     Max.   :480712   Max.   :2906785   Max.   :46636   Max.   :72836  
-##    tot_cases         tot_death       population         death_rate       tot_confi_inpatient
-##  Min.   :  44290   Min.   :  388   Min.   :  581075   Min.   :0.005854   Min.   :  11188    
-##  1st Qu.: 266630   1st Qu.: 3236   1st Qu.: 1837057   1st Qu.:0.012246   1st Qu.: 123826    
-##  Median : 628398   Median : 9335   Median : 4385076   Median :0.015301   Median : 313117    
-##  Mean   : 903737   Mean   :14276   Mean   : 6433422   Mean   :0.014934   Mean   : 497086    
-##  3rd Qu.:1127996   3rd Qu.:17726   3rd Qu.: 7589312   3rd Qu.:0.017170   3rd Qu.: 592739    
-##  Max.   :5045388   Max.   :73365   Max.   :39613493   Max.   :0.022782   Max.   :2953421    
-##   inhospi_rate      beds_perc      
-##  Min.   :0.2096   Min.   :0.01397  
-##  1st Qu.:0.4250   1st Qu.:0.01708  
-##  Median :0.4993   Median :0.01981  
-##  Mean   :0.5079   Mean   :0.02048  
-##  3rd Qu.:0.5807   3rd Qu.:0.02318  
-##  Max.   :0.9132   Max.   :0.03579</code></pre>
+<pre><code>##     state             total_beds        adu_conf          ped_conf     total_icu_beds    tot_cases         tot_death       population         death_rate       tot_confi_inpatient  inhospi_rate   
+##  Length:52          Min.   :  8840   Min.   :  11101   Min.   :   87   Min.   :  855   Min.   :  44290   Min.   :  388   Min.   :  581075   Min.   :0.005854   Min.   :  11188     Min.   :0.2096  
+##  Class :character   1st Qu.: 27725   1st Qu.: 121837   1st Qu.: 1638   1st Qu.: 3929   1st Qu.: 266630   1st Qu.: 3236   1st Qu.: 1837057   1st Qu.:0.012246   1st Qu.: 123826     1st Qu.:0.4250  
+##  Mode  :character   Median : 80142   Median : 308293   Median : 3260   Median : 9940   Median : 628398   Median : 9335   Median : 4385076   Median :0.015301   Median : 313117     Median :0.4993  
+##                     Mean   :111018   Mean   : 490902   Mean   : 6184   Mean   :14642   Mean   : 903737   Mean   :14276   Mean   : 6433422   Mean   :0.014934   Mean   : 497086     Mean   :0.5079  
+##                     3rd Qu.:136851   3rd Qu.: 583488   3rd Qu.: 7348   3rd Qu.:19071   3rd Qu.:1127996   3rd Qu.:17726   3rd Qu.: 7589312   3rd Qu.:0.017170   3rd Qu.: 592739     3rd Qu.:0.5807  
+##                     Max.   :480712   Max.   :2906785   Max.   :46636   Max.   :72836   Max.   :5045388   Max.   :73365   Max.   :39613493   Max.   :0.022782   Max.   :2953421     Max.   :0.9132  
+##    beds_perc      
+##  Min.   :0.01397  
+##  1st Qu.:0.01708  
+##  Median :0.01981  
+##  Mean   :0.02048  
+##  3rd Qu.:0.02318  
+##  Max.   :0.03579</code></pre>
 <p>So the final data-set after transformation will have 52 observations with 12 features.</p>
 
 </div>

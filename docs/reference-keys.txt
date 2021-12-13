@@ -18,14 +18,8 @@ heatmap
 covid-19_hospital_capacity-1
 covid-19_case_death-1
 results
-us-time-series
-us-cumulative-cases
-latest-cummulative-cases-and-deaths
-latest-vaccination-situation
-time-series-of-serious-states
-distribution
-percentage-of-number-of-beds-in-population-vs-death-rate
-inpatient-rate-and-death-rate
+impact-of-the-vaccination-on-the-spread-of-the-epidemic
+impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate
 interactive-component
 top-5-series-states
 conclusion

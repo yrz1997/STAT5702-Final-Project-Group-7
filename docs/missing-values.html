@@ -114,14 +114,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#us-time-series"><i class="fa fa-check"></i><b>5.1</b> US time series</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#us-cumulative-cases"><i class="fa fa-check"></i><b>5.2</b> US cumulative cases</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#latest-cummulative-cases-and-deaths"><i class="fa fa-check"></i><b>5.3</b> Latest cummulative cases and deaths</a></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>5.4</b> Latest vaccination situation</a></li>
-<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
-<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
-<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#percentage-of-number-of-beds-in-population-vs-death-rate"><i class="fa fa-check"></i><b>5.7</b> Percentage of number of beds in population VS death rate</a></li>
-<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#inpatient-rate-and-death-rate"><i class="fa fa-check"></i><b>5.8</b> inpatient rate and death rate</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -154,18 +148,15 @@
 <div id="dataframe-after-data-cleaning" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Dataframe after data cleaning</h3>
 <pre><code>## # A tibble: 6 x 14
-##   date       location   total_vaccinati~ total_distribut~ people_vaccinat~ people_fully_vaccin~
-##   &lt;date&gt;     &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;                &lt;dbl&gt;
-## 1 2020-12-20 United St~           556208               NA               NA                   NA
-## 2 2020-12-21 United St~           614117               NA               NA                   NA
-## 3 2020-12-22 United St~               NA               NA               NA                   NA
-## 4 2020-12-23 United St~          1008025               NA               NA                   NA
-## 5 2020-12-24 United St~               NA               NA               NA                   NA
-## 6 2020-12-25 United St~               NA               NA               NA                   NA
-## # ... with 8 more variables: total_vaccinations_per_hundred &lt;dbl&gt;,
-## #   people_fully_vaccinated &lt;dbl&gt;, people_vaccinated_per_hundred &lt;dbl&gt;,
-## #   distributed_per_hundred &lt;dbl&gt;, daily_vaccinations_raw &lt;dbl&gt;, daily_vaccinations &lt;dbl&gt;,
-## #   daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;</code></pre>
+##   date       location  total_vaccinatio~ total_distributed people_vaccinat~ people_fully_vac~ total_vaccinatio~ people_fully_va~ people_vaccinate~ distributed_per~ daily_vaccinati~ daily_vaccinati~
+##   &lt;date&gt;     &lt;chr&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 2020-12-20 United S~            556208                NA               NA                NA              0.17               NA                NA               NA               NA               NA
+## 2 2020-12-21 United S~            614117                NA               NA                NA              0.18               NA                NA               NA            57909            57909
+## 3 2020-12-22 United S~                NA                NA               NA                NA             NA                  NA                NA               NA               NA           127432
+## 4 2020-12-23 United S~           1008025                NA               NA                NA              0.3                NA                NA               NA               NA           150606
+## 5 2020-12-24 United S~                NA                NA               NA                NA             NA                  NA                NA               NA               NA           191001
+## 6 2020-12-25 United S~                NA                NA               NA                NA             NA                  NA                NA               NA               NA           215238
+## # ... with 2 more variables: daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;</code></pre>
 <p>The original dataframe contain vaccination information of all states and some organizations of United States. We extracted whole country data and we can see that each row represents a day from 2020-12-20 to now. The information is updated everyday. There are lots of missing values in the table and we are going to use different methods to visualize it.</p>
 </div>
 <div id="missing-value-counts-by-column" class="section level3" number="4.1.2">
@@ -207,9 +198,9 @@
 </div>
 <div id="heatmap" class="section level3" number="4.1.4">
 <h3><span class="header-section-number">4.1.4</span> Heatmap</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
-<p>In order to see the missing patterns we have for this dataframe, we can use heatmap. It can be observed that rows that have missing values all at once by using this heatmap. However, since there are 330 rows in the us_whole_vaccination dataframe, it is hard to summarize the missing value patterns without showing the whole graph. Moreover, as looking through the graph, several rows have the similar missing value patterns. So instead of showing the heatmap for each row, plot just show the different missing value patterns for the dataset is prefered.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="960" /></p>
+<p>In order to see the missing patterns we have for this dataframe, we can use heatmap. It can be observed that rows that have missing values all at once by using this heatmap. However, since there are 330 rows in the us_whole_vaccination dataframe, it is hard to summarize the missing value patterns without showing the whole graph. Moreover, as looking through the graph, several rows have the similar missing value patterns. So instead of showing the heatmap for each row, plot just show the different missing value patterns for the dataset is prefered.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
 <p>This missing value plot is a combination of all the information above. It consists of three plots.</p>
 <p>The main plot is the heatmap on the bottom left. It summarized different missing value patterns among all rows. The blue block in each column represents there are missing values in this column. According to the main plot, it shows that there are 7 different patterns for us_whole_vaccination dataset, which are represented by each row of the heatmap. The first row in the heatmap represents the complete cases, which means there is no missing value for rows in this pattern. By looking through this plot, there is a correlation between some features as mentioned in 4.2. For example, for features “people_fully_vaccinated_per_hundred” and “people_fully_vaccinated”, in each pattern, their missing value always occurred in the same time. Similar for features “total_distributed, people_vaccinated, people_vaccinated_per_hundred, distributed_per_hundred, and share_doses_used”, “daily_vaccinations and daily_vaccinations_per_million”, and “total_vaccinations and total_vaccinations_per_hundred”. It indicates that for some of these features, it maybe reasonable to only keep one feature from each group. For example, keep “people_fully_vaccinated” and remove “people_fully_vaccinated_per_hundred”.</p>
 <p>The barplot on the right is the row count plot. It tells us the number of rows that each pattern can apply. It shows that the complete cases pattern has the most largest number of rows. From this plot, it shows that pattern 2 has the largest number of rows with missing data. By checking with this pattern, it contains 10 features that are missing. A reasonable guess is that the most of data for this pattern comes from December 2020 and January 2021. Crossing checking with the heatmap for each row in 4.4, this guess is confirmed.</p>
