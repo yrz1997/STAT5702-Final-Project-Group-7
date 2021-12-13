@@ -13,9 +13,6 @@ library(tmaptools)
 library(tigris)          
 library(sf)
 
-
-
-
 day <- "2021-12-09"
 
 us_vaccination_url <- 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv'

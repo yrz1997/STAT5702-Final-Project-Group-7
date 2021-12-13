@@ -24,7 +24,7 @@
 <meta name="author" content="Ruize Yu, Jiazhen Li, Wenxin Zhang" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -87,10 +87,18 @@
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#vaccination-data"><i class="fa fa-check"></i><b>2.1</b> Vaccination data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#covid-19-reported-patient-impact-and-hospital-capa"><i class="fa fa-check"></i><b>2.2</b> COVID-19-Reported-Patient-Impact-and-Hospital-Capa</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#united-states-covid-19-cases-and-deaths-by-state"><i class="fa fa-check"></i><b>2.3</b> United-States-COVID-19-Cases-and-Deaths-by-State</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#vaccination-case-and-death-data"><i class="fa fa-check"></i><b>3.1</b> Vaccination, case, and death data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#relationship-between-morbidity-and-mortality-and-hospital-capacity"><i class="fa fa-check"></i><b>3.2</b> Relationship between morbidity and mortality and hospital capacity</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data-transformation.html"><a href="data-transformation.html#covid-19_hospital_capacity"><i class="fa fa-check"></i><b>3.2.1</b> COVID-19_Hospital_Capacity</a></li>
+<li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#covid-19_case_death"><i class="fa fa-check"></i><b>3.2.2</b> COVID-19_Case_Death</a></li>
+<li class="chapter" data-level="3.2.3" data-path="data-transformation.html"><a href="data-transformation.html#merge"><i class="fa fa-check"></i><b>3.2.3</b> Merge</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
@@ -101,6 +109,8 @@
 <li class="chapter" data-level="4.1.3" data-path="missing-values.html"><a href="missing-values.html#missing-value-counts-by-row"><i class="fa fa-check"></i><b>4.1.3</b> Missing value counts by row</a></li>
 <li class="chapter" data-level="4.1.4" data-path="missing-values.html"><a href="missing-values.html#heatmap"><i class="fa fa-check"></i><b>4.1.4</b> Heatmap</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#covid-19_hospital_capacity-1"><i class="fa fa-check"></i><b>4.2</b> COVID-19_Hospital_Capacity</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#covid-19_case_death-1"><i class="fa fa-check"></i><b>4.3</b> COVID-19_Case_Death</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
@@ -110,6 +120,8 @@
 <li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#latest-vaccination-situation"><i class="fa fa-check"></i><b>5.4</b> Latest vaccination situation</a></li>
 <li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#time-series-of-serious-states"><i class="fa fa-check"></i><b>5.5</b> Time series of serious states</a></li>
 <li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#distribution"><i class="fa fa-check"></i><b>5.6</b> Distribution</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#percentage-of-number-of-beds-in-population-vs-death-rate"><i class="fa fa-check"></i><b>5.7</b> Percentage of number of beds in population VS death rate</a></li>
+<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#inpatient-rate-and-death-rate"><i class="fa fa-check"></i><b>5.8</b> inpatient rate and death rate</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -152,11 +164,45 @@
 <p>The starting date of this dataset is 2021-01-12 and the last day is yesterday.
 The first problem we noticed was that in location, there are many places that are not US states. Like “Bureau of Prisons”,“Dept of Defense”… Therefore, the first step that we did was to filter out these none-states. Then we found a common issue, missing data. We visualized it in missing values chapter and decided to do a backward filling. Because most of these missing values were not continuous, we could simply use the latest values to fill in these missing spots.</p>
 <p>For the cases and death data, the raw data put every day as a column therefore we first converted these columns to rows.</p>
-<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;           &quot;Admin2&quot;        
-##  [7] &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;          &quot;Combined_Key&quot;   &quot;1/22/20&quot;       
-## [13] &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
+<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;          
+##  [6] &quot;Admin2&quot;         &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;         
+## [11] &quot;Combined_Key&quot;   &quot;1/22/20&quot;        &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
 <p>The starting date of this dataset is 2020-01-22 and the last day is yesterday.
 When we tried to calculate daily growing cases and death from cummulative data, we noticed that there were mistakes when collecting these data because some of the growing numbers were negative. We used the same filling method as in vaccination data.</p>
+</div>
+<div id="covid-19-reported-patient-impact-and-hospital-capa" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> COVID-19-Reported-Patient-Impact-and-Hospital-Capa</h2>
+<p>This data-set provides facility-level data for hospital utilization aggregated on a weekly basis (Friday to Thursday) in the time period from 2020-07-31 to 2021-11-26. It is mainly collected from two sources: (1) HHS TeleTracking, and (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities.</p>
+<p>There are 106 features with 309719 records in the original data-set, but not all of those features are useful for our analysis, so we only select 6 specific features from 106 original features. These selected features including date, state, capacities of hospitals and number of hospitalized patients who are confirmed with COVID-19.</p>
+<p>We also noticed that there is value -999999 in data-set which is not a reasonable value. Replacing -999999 with 2 since it represents sums and averages less than four, so use average to replace that. Because we want to compare the information between states, so group the data-set by state is also needed. Moreover, as the summary of the data-set shows below, there are missing values in features. Therefore, we also need to handle the NA values in the later process.</p>
+<pre><code>##  hospital_pk          colle_week            state             total_beds       adu_conf      
+##  Length:349655      Min.   :2020-07-31   Length:349655      Min.   :    0   Min.   :   0.00  
+##  Class :character   1st Qu.:2020-11-27   Class :character   1st Qu.:  195   1st Qu.:   0.00  
+##  Mode  :character   Median :2021-04-02   Mode  :character   Median :  490   Median :  16.00  
+##                     Mean   :2021-03-30                      Mean   : 1152   Mean   :  73.14  
+##                     3rd Qu.:2021-07-30                      3rd Qu.: 1524   3rd Qu.:  77.00  
+##                     Max.   :2021-11-26                      Max.   :35108   Max.   :9071.00  
+##                                                             NA&#39;s   :1294    NA&#39;s   :2720     
+##     ped_conf        total_icu_beds  
+##  Min.   :-40.0000   Min.   :   0.0  
+##  1st Qu.:  0.0000   1st Qu.:   0.0  
+##  Median :  0.0000   Median :  49.0  
+##  Mean   :  0.9217   Mean   : 152.3  
+##  3rd Qu.:  0.0000   3rd Qu.: 168.0  
+##  Max.   :519.0000   Max.   :5949.0  
+##  NA&#39;s   :3067       NA&#39;s   :2064</code></pre>
+</div>
+<div id="united-states-covid-19-cases-and-deaths-by-state" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> United-States-COVID-19-Cases-and-Deaths-by-State</h2>
+<p>This data-set is collected by CDC, which includes counts of COVID-19 cases and death numbers daily in the time period form 2020-01-22 to 2021-12-07. CDC collects and organizes these data based on these most recent numbers reported by states, territories, and other jurisdictions. There are 41160 records with 15 features in the original data-set, and each record represents a specific date for a specific state. We only keep 3 features which are state, total number of cases and total number of death for our further analysis.</p>
+<p>Because we want to merge this data-set with ‘COVID-19-Reported-Patient-Impact-and-Hospital-Capa’, so it is important to make sure they are in the same time period. Since the time range for ‘COVID-19-Reported-Patient-Impact-and-Hospital-Capa’ is smaller, so the subset of original data-set is generated with the time period from 2020-07-31 to 2021-11-26. The sub data-set has 29040 records with 3 features. Note that for the features ‘tot_cases’ and ‘tot_death’, they are cumulative features during the time period. Moreover, to compare between state, we add population column to calculate the percentage.</p>
+<pre><code>##     state           submission_date        tot_cases         tot_death       population      
+##  Length:25168       Min.   :2020-07-31   Min.   :   1295   Min.   :   26   Min.   :  581075  
+##  Class :character   1st Qu.:2020-11-28   1st Qu.: 102344   1st Qu.: 1577   1st Qu.: 1837057  
+##  Mode  :character   Median :2021-03-29   Median : 282938   Median : 5124   Median : 4385076  
+##                     Mean   :2021-03-29   Mean   : 500481   Mean   : 8727   Mean   : 6433422  
+##                     3rd Qu.:2021-07-28   3rd Qu.: 651956   3rd Qu.:11012   3rd Qu.: 7589312  
+##                     Max.   :2021-11-26   Max.   :5045388   Max.   :73365   Max.   :39613493</code></pre>
 
 </div>
 </div>

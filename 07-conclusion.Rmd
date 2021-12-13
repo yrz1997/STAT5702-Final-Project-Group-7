@@ -1,2 +1,10 @@
 # Conclusion
 
+In this project, we encountered lots of problems and learned a lot in the process of solving these issues. 
+
+After we got the raw data, missing value was the first problem that we need to deal with. There were lots of techniques to choose to solve missing values, like forward filling, backward filling, fill by means, delete... For different types of features, we used different methods by doing lots of research online. When we were doing data cleaning and transformation, we found that some of the data was wrong when being collected. We had to find means to correct these values. 
+
+When it came to the graphs, things were more complicated. We learned a lot of visualization techniques in this semester's class and we needed to find the proper graphs to tell our data story. All graphs had to be well-designed and could help to explain the main idea. In the future, we can improve our graphs by using better methods, like putting bar plots side by side. D3 is a powerful technique. We only used a little in this project. It doesn't require a server to run like shiny app. We can design more interactive graphs that can explain our ideas to our readers better.
+
+
+

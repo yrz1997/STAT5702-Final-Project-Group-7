@@ -34,10 +34,7 @@ shape_obj <- left_join(us_geo, df, by=c('NAME'='state')) %>%
   filter(NAME != 'District of Columbia')
 
 us_map <- tm_shape(shape_obj) +
-  tm_polygons('cases',id='Name') +
-  tm_layout(main.title=paste('Total Cases On ',day),
-            main.title.position = "left",
-            main.title.size = 1)
+  tm_polygons('cases',id='Name')
 
 dff <- state_cases_raw %>% 
   select(UID:Combined_Key,'12/9/21')
@@ -48,11 +45,6 @@ tmap_mode('view')
 
 tm_shape(shape_obj) +
   tm_polygons('cases',id='Name') +
-  tm_layout(main.title=paste('Total Cases On ',day),
-            main.title.position = "left",
-            main.title.size = 1,
-            legend.outside = TRUE,
-            legend.position = c("left", "top")) +  
 tm_shape(dff_sf) +
   tm_symbols(col='red',size='12/9/21',scale=1) 
 ```
