@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | United States Covid Project</title>
-  <meta name="description" content="Chapter 2 Data sources | United States Covid Project" />
+  <title>Chapter 2 Data sources | Covid 19 Project</title>
+  <meta name="description" content="Chapter 2 Data sources | Covid 19 Project" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | United States Covid Project" />
+  <meta property="og:title" content="Chapter 2 Data sources | Covid 19 Project" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | United States Covid Project" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | Covid 19 Project" />
   
   
   
@@ -89,6 +89,7 @@
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#vaccination-data"><i class="fa fa-check"></i><b>2.1</b> Vaccination data</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#covid-19-reported-patient-impact-and-hospital-capa"><i class="fa fa-check"></i><b>2.2</b> COVID-19-Reported-Patient-Impact-and-Hospital-Capa</a></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#united-states-covid-19-cases-and-deaths-by-state"><i class="fa fa-check"></i><b>2.3</b> United-States-COVID-19-Cases-and-Deaths-by-State</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#life-expectancy-data"><i class="fa fa-check"></i><b>2.4</b> Life expectancy data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
@@ -111,11 +112,13 @@
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#covid-19_hospital_capacity-1"><i class="fa fa-check"></i><b>4.2</b> COVID-19_Hospital_Capacity</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#covid-19_case_death-1"><i class="fa fa-check"></i><b>4.3</b> COVID-19_Case_Death</a></li>
+<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#life-expectancy-data-1"><i class="fa fa-check"></i><b>4.4</b> Life Expectancy Data</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#impact-of-the"><i class="fa fa-check"></i><b>5.3</b> Impact of the</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -133,7 +136,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">United States Covid Project</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Covid 19 Project</a>
           </h1>
         </div>
 
@@ -165,25 +168,32 @@ When we tried to calculate daily growing cases and death from cummulative data, 
 <p>There are 106 features with 309719 records in the original data-set, but not all of those features are useful for our analysis, so we only select 6 specific features from 106 original features. These selected features including date, state, capacities of hospitals and number of hospitalized patients who are confirmed with COVID-19.</p>
 <p>We also noticed that there is value -999999 in data-set which is not a reasonable value. Replacing -999999 with 2 since it represents sums and averages less than four, so use average to replace that. Because we want to compare the information between states, so group the data-set by state is also needed. Moreover, as the summary of the data-set shows below, there are missing values in features. Therefore, we also need to handle the NA values in the later process.</p>
 <pre><code>##  hospital_pk          colle_week            state             total_beds       adu_conf          ped_conf        total_icu_beds  
-##  Length:349655      Min.   :2020-07-31   Length:349655      Min.   :    0   Min.   :   0.00   Min.   :-40.0000   Min.   :   0.0  
-##  Class :character   1st Qu.:2020-11-27   Class :character   1st Qu.:  195   1st Qu.:   0.00   1st Qu.:  0.0000   1st Qu.:   0.0  
+##  Length:354733      Min.   :2020-07-31   Length:354733      Min.   :    0   Min.   :   0.00   Min.   :-40.0000   Min.   :   0.0  
+##  Class :character   1st Qu.:2020-11-27   Class :character   1st Qu.:  194   1st Qu.:   0.00   1st Qu.:  0.0000   1st Qu.:   0.0  
 ##  Mode  :character   Median :2021-04-02   Mode  :character   Median :  490   Median :  16.00   Median :  0.0000   Median :  49.0  
-##                     Mean   :2021-03-30                      Mean   : 1152   Mean   :  73.14   Mean   :  0.9217   Mean   : 152.3  
-##                     3rd Qu.:2021-07-30                      3rd Qu.: 1524   3rd Qu.:  77.00   3rd Qu.:  0.0000   3rd Qu.: 168.0  
-##                     Max.   :2021-11-26                      Max.   :35108   Max.   :9071.00   Max.   :519.0000   Max.   :5949.0  
-##                                                             NA&#39;s   :1294    NA&#39;s   :2720      NA&#39;s   :3067       NA&#39;s   :2064</code></pre>
+##                     Mean   :2021-04-02                      Mean   : 1153   Mean   :  73.22   Mean   :  0.9242   Mean   : 152.4  
+##                     3rd Qu.:2021-08-06                      3rd Qu.: 1526   3rd Qu.:  77.00   3rd Qu.:  0.0000   3rd Qu.: 168.0  
+##                     Max.   :2021-12-03                      Max.   :35108   Max.   :9071.00   Max.   :519.0000   Max.   :5949.0  
+##                                                             NA&#39;s   :1294    NA&#39;s   :2720      NA&#39;s   :3070       NA&#39;s   :2064</code></pre>
 </div>
 <div id="united-states-covid-19-cases-and-deaths-by-state" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> United-States-COVID-19-Cases-and-Deaths-by-State</h2>
 <p>This data-set is collected by CDC, which includes counts of COVID-19 cases and death numbers daily in the time period form 2020-01-22 to 2021-12-07. CDC collects and organizes these data based on these most recent numbers reported by states, territories, and other jurisdictions. There are 41160 records with 15 features in the original data-set, and each record represents a specific date for a specific state. We only keep 3 features which are state, total number of cases and total number of death for our further analysis.</p>
 <p>Because we want to merge this data-set with ‘COVID-19-Reported-Patient-Impact-and-Hospital-Capa’, so it is important to make sure they are in the same time period. Since the time range for ‘COVID-19-Reported-Patient-Impact-and-Hospital-Capa’ is smaller, so the subset of original data-set is generated with the time period from 2020-07-31 to 2021-11-26. The sub data-set has 29040 records with 3 features. Note that for the features ‘tot_cases’ and ‘tot_death’, they are cumulative features during the time period. Moreover, to compare between state, we add population column to calculate the percentage.</p>
 <pre><code>##     state           submission_date        tot_cases         tot_death       population      
-##  Length:25168       Min.   :2020-07-31   Min.   :   1295   Min.   :   26   Min.   :  581075  
-##  Class :character   1st Qu.:2020-11-28   1st Qu.: 102344   1st Qu.: 1577   1st Qu.: 1837057  
-##  Mode  :character   Median :2021-03-29   Median : 282938   Median : 5124   Median : 4385076  
-##                     Mean   :2021-03-29   Mean   : 500481   Mean   : 8727   Mean   : 6433422  
-##                     3rd Qu.:2021-07-28   3rd Qu.: 651956   3rd Qu.:11012   3rd Qu.: 7589312  
-##                     Max.   :2021-11-26   Max.   :5045388   Max.   :73365   Max.   :39613493</code></pre>
+##  Length:25532       Min.   :2020-07-31   Min.   :   1295   Min.   :   26   Min.   :  581075  
+##  Class :character   1st Qu.:2020-11-30   1st Qu.: 103570   1st Qu.: 1595   1st Qu.: 1837057  
+##  Mode  :character   Median :2021-04-02   Median : 287450   Median : 5164   Median : 4385076  
+##                     Mean   :2021-04-02   Mean   : 506323   Mean   : 8807   Mean   : 6433422  
+##                     3rd Qu.:2021-08-03   3rd Qu.: 659642   3rd Qu.:11100   3rd Qu.: 7589312  
+##                     Max.   :2021-12-03   Max.   :5084927   Max.   :74046   Max.   :39613493</code></pre>
+</div>
+<div id="life-expectancy-data" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Life expectancy data</h2>
+<p>Our complete owid_covid_data data set is collected from ‘Our World in Data’. It is updated daily and includes data on confirmed cases, deaths and testing. The dataset can be downloaded from <a href="https://ourworldindata.org/coronavirus-source-data" class="uri">https://ourworldindata.org/coronavirus-source-data</a>.
+Confirmed cases and deaths of our data comes from the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU). Full description of all variables is available in the codebook or online: <a href="https://github.com/owid/covid-19-data/tree/master/public/data/" class="uri">https://github.com/owid/covid-19-data/tree/master/public/data/</a>
+Most variable names are self-explanatory and there are too many of them. However, we do not need all of those features for our analysis, so we only select 9 features. These selected features including continent, location, date iso_code, total_cases, new_cases, total_cases_per_million, new_cases_per_million and life_expectancy.
+After all, the data on the new crown can not be statistically comprehensive, so there are missing values in this data set, so we deal with the missing values.</p>
 
 </div>
 </div>

@@ -58,6 +58,16 @@ summary(case_death_selected)
 
 ```
 
+## Life expectancy data
+```{r,message=FALSE,warning=FALSE}
+source('data/life_expectancy.R')
+```
+
+Our complete owid_covid_data data set is collected from ‘Our World in Data’. It is updated daily and includes data on confirmed cases, deaths and testing. The dataset can be downloaded from https://ourworldindata.org/coronavirus-source-data. 
+Confirmed cases and deaths of our data comes from the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU). Full description of all variables is available in the codebook or online: https://github.com/owid/covid-19-data/tree/master/public/data/
+Most variable names are self-explanatory and there are too many of them. However, we do not need all of those features for our analysis, so we only select 9 features. These selected features including continent, location, date iso_code, total_cases, new_cases, total_cases_per_million, new_cases_per_million and life_expectancy. 
+After all, the data on the new crown can not be statistically comprehensive, so there are missing values in this data set, so we deal with the missing values.
+
 
 
 

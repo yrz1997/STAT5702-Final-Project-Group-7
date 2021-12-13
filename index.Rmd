@@ -1,5 +1,5 @@
 --- 
-title: "United States Covid Project"
+title: "Covid 19 Project"
 author: "Ruize Yu, Jiazhen Li, Wenxin Zhang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -14,7 +14,7 @@ Therefore, in this project, we would like to study some issues about COVID-19. S
 
 In the first part, analysis are based on the data collected from the United States. With knowledge that after vaccination started in United States, cases and death dropped significantly at the beginning, but after a while, a turning point appeared and now the cases are increasing just like before vaccination. The analysis will be done for the impact of Coronavirus vaccination on the prevalence and mortality. We will start from whole country and then break down to serious state to try to figure out why cases are increasing with huge number of vaccinations.
 
-
 The second part uses data distributed by states in the United States. It mainly includes the number of hospital beds in each state, the diagnosis rate in a specific time period, the rate of consultations and the mortality rate. So it can be analysed that whether there is a relationship between hospital capacity and mortality, and the relationship between hospitalization and mortality.
 
-The last part....
+The last part focus on life expectancy and covid. Two studies have reported that life expectancy has been shortened by nearly two years by 2020 as a result of 2019 coronavirus disease. Bad as it sounds, what does it mean? Life expectancy reflects the level of development of a country, or the proportion of the elderly population, the older the population. So it is easier to combine COVID-19 with the elderly.We make an analysis of a relationship between life expectancy and total number of cases per million population. Do 
+the number of confirmed cases is positively correlated with the life expectancy?

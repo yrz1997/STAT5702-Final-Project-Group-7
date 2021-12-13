@@ -111,6 +111,11 @@ result_col
 
 ```
 
+## Life Expectancy Data
+```{r}
+dat <- data[,c(1:6,11,12,62)] 
+map_dbl(dat,~sum(is.na(.x)))
+dat_a <- dat %>% na.omit()
+```
 
-
-
+We only select 9 features and these selected features including continent, location, date iso_code, total_cases, new_cases, total_cases_per_million, new_cases_per_million and life_expectancy. This is the missing value counts by different features. We use map_db() to solve these missing value problem and after we find them and count their number, we omit them by omit() and get a new dataset. From this table, we can see that the feature “iso_code” , “location”  and “date” are comprehensive. 

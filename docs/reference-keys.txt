@@ -3,6 +3,7 @@ data-sources
 vaccination-data
 covid-19-reported-patient-impact-and-hospital-capa
 united-states-covid-19-cases-and-deaths-by-state
+life-expectancy-data
 data-transformation
 vaccination-case-and-death-data
 relationship-between-morbidity-and-mortality-and-hospital-capacity
@@ -17,9 +18,11 @@ missing-value-counts-by-row
 heatmap
 covid-19_hospital_capacity-1
 covid-19_case_death-1
+life-expectancy-data-1
 results
 impact-of-the-vaccination-on-the-spread-of-the-epidemic
 impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate
+impact-of-the
 interactive-component
 top-5-series-states
 conclusion

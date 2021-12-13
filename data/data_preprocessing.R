@@ -12,6 +12,7 @@ library(tmap)
 library(tmaptools) 
 library(tigris)          
 library(sf)
+library(lubridate)
 
 day <- "2021-12-09"
 

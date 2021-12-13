@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Data transformation | United States Covid Project</title>
-  <meta name="description" content="Chapter 3 Data transformation | United States Covid Project" />
+  <title>Chapter 3 Data transformation | Covid 19 Project</title>
+  <meta name="description" content="Chapter 3 Data transformation | Covid 19 Project" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Data transformation | United States Covid Project" />
+  <meta property="og:title" content="Chapter 3 Data transformation | Covid 19 Project" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Data transformation | United States Covid Project" />
+  <meta name="twitter:title" content="Chapter 3 Data transformation | Covid 19 Project" />
   
   
   
@@ -89,6 +89,7 @@
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#vaccination-data"><i class="fa fa-check"></i><b>2.1</b> Vaccination data</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#covid-19-reported-patient-impact-and-hospital-capa"><i class="fa fa-check"></i><b>2.2</b> COVID-19-Reported-Patient-Impact-and-Hospital-Capa</a></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#united-states-covid-19-cases-and-deaths-by-state"><i class="fa fa-check"></i><b>2.3</b> United-States-COVID-19-Cases-and-Deaths-by-State</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#life-expectancy-data"><i class="fa fa-check"></i><b>2.4</b> Life expectancy data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
@@ -111,11 +112,13 @@
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#covid-19_hospital_capacity-1"><i class="fa fa-check"></i><b>4.2</b> COVID-19_Hospital_Capacity</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#covid-19_case_death-1"><i class="fa fa-check"></i><b>4.3</b> COVID-19_Case_Death</a></li>
+<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#life-expectancy-data-1"><i class="fa fa-check"></i><b>4.4</b> Life Expectancy Data</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#impact-of-the"><i class="fa fa-check"></i><b>5.3</b> Impact of the</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -133,7 +136,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">United States Covid Project</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Covid 19 Project</a>
           </h1>
         </div>
 
@@ -206,12 +209,12 @@
 6. group all hospital records for each state to calculate the total confirmed COVID-19 cases in that state during the time period</p>
 <p>Dataframes after transformation:</p>
 <pre><code>##     state             total_beds        adu_conf          ped_conf     total_icu_beds 
-##  Length:56          Min.   :   508   Min.   :      0   Min.   :    0   Min.   :   47  
-##  Class :character   1st Qu.: 22602   1st Qu.:  77907   1st Qu.: 1290   1st Qu.: 2759  
-##  Mode  :character   Median : 70829   Median : 278218   Median : 2974   Median : 9449  
-##                     Mean   :103183   Mean   : 456117   Mean   : 5745   Mean   :13606  
-##                     3rd Qu.:135705   3rd Qu.: 554990   3rd Qu.: 6568   3rd Qu.:18813  
-##                     Max.   :480712   Max.   :2906785   Max.   :46636   Max.   :72836</code></pre>
+##  Length:56          Min.   :   512   Min.   :      0   Min.   :    0   Min.   :   47  
+##  Class :character   1st Qu.: 22599   1st Qu.:  79767   1st Qu.: 1318   1st Qu.: 2768  
+##  Mode  :character   Median : 70797   Median : 280424   Median : 3014   Median : 9447  
+##                     Mean   :103258   Mean   : 463311   Mean   : 5845   Mean   :13621  
+##                     3rd Qu.:135635   3rd Qu.: 569942   3rd Qu.: 6644   3rd Qu.:18810  
+##                     Max.   :480506   Max.   :2926995   Max.   :47131   Max.   :72847</code></pre>
 <p>After the transformation, there are 56 observations with 5 features, each record represents one state in the United States.</p>
 </div>
 <div id="covid-19_case_death" class="section level3" number="3.2.2">
@@ -224,29 +227,29 @@
 5. keep the record with latest date for each state as features ‘tot_cases’ and ‘tot_death’ are cumulative features</p>
 <p>Dataframes after transformation:</p>
 <pre><code>##     state           submission_date        tot_cases         tot_death       population      
-##  Length:52          Min.   :2021-11-26   Min.   :  44290   Min.   :  388   Min.   :  581075  
-##  Class :character   1st Qu.:2021-11-26   1st Qu.: 266630   1st Qu.: 3236   1st Qu.: 1837057  
-##  Mode  :character   Median :2021-11-26   Median : 628398   Median : 9335   Median : 4385076  
-##                     Mean   :2021-11-26   Mean   : 903737   Mean   :14276   Mean   : 6433422  
-##                     3rd Qu.:2021-11-26   3rd Qu.:1127996   3rd Qu.:17726   3rd Qu.: 7589312  
-##                     Max.   :2021-11-26   Max.   :5045388   Max.   :73365   Max.   :39613493</code></pre>
+##  Length:52          Min.   :2021-12-03   Min.   :  47767   Min.   :  397   Min.   :  581075  
+##  Class :character   1st Qu.:2021-12-03   1st Qu.: 272709   1st Qu.: 3249   1st Qu.: 1837057  
+##  Mode  :character   Median :2021-12-03   Median : 637090   Median : 9576   Median : 4385076  
+##                     Mean   :2021-12-03   Mean   : 917883   Mean   :14430   Mean   : 6433422  
+##                     3rd Qu.:2021-12-03   3rd Qu.:1154956   3rd Qu.:17990   3rd Qu.: 7589312  
+##                     Max.   :2021-12-03   Max.   :5084927   Max.   :74046   Max.   :39613493</code></pre>
 <p>After the selection, there are 52 records with 5 features. Each record represents one state in the United States.</p>
 </div>
 <div id="merge" class="section level3" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Merge</h3>
 <p>In order to see the relationship between hospital capacity and death rate of COVID-19, added new columns which would represents the death rate, total number of confirmed inpatients, hospitalization rate and percentage of total beds in population for each state.</p>
-<pre><code>##     state             total_beds        adu_conf          ped_conf     total_icu_beds    tot_cases         tot_death       population         death_rate       tot_confi_inpatient  inhospi_rate   
-##  Length:52          Min.   :  8840   Min.   :  11101   Min.   :   87   Min.   :  855   Min.   :  44290   Min.   :  388   Min.   :  581075   Min.   :0.005854   Min.   :  11188     Min.   :0.2096  
-##  Class :character   1st Qu.: 27725   1st Qu.: 121837   1st Qu.: 1638   1st Qu.: 3929   1st Qu.: 266630   1st Qu.: 3236   1st Qu.: 1837057   1st Qu.:0.012246   1st Qu.: 123826     1st Qu.:0.4250  
-##  Mode  :character   Median : 80142   Median : 308293   Median : 3260   Median : 9940   Median : 628398   Median : 9335   Median : 4385076   Median :0.015301   Median : 313117     Median :0.4993  
-##                     Mean   :111018   Mean   : 490902   Mean   : 6184   Mean   :14642   Mean   : 903737   Mean   :14276   Mean   : 6433422   Mean   :0.014934   Mean   : 497086     Mean   :0.5079  
-##                     3rd Qu.:136851   3rd Qu.: 583488   3rd Qu.: 7348   3rd Qu.:19071   3rd Qu.:1127996   3rd Qu.:17726   3rd Qu.: 7589312   3rd Qu.:0.017170   3rd Qu.: 592739     3rd Qu.:0.5807  
-##                     Max.   :480712   Max.   :2906785   Max.   :46636   Max.   :72836   Max.   :5045388   Max.   :73365   Max.   :39613493   Max.   :0.022782   Max.   :2953421     Max.   :0.9132  
+<pre><code>##     state             total_beds        adu_conf          ped_conf     total_icu_beds    tot_cases         tot_death       population         death_rate      tot_confi_inpatient  inhospi_rate   
+##  Length:52          Min.   :  8843   Min.   :  11669   Min.   :   95   Min.   :  856   Min.   :  47767   Min.   :  397   Min.   :  581075   Min.   :0.00582   Min.   :  11764     Min.   :0.2100  
+##  Class :character   1st Qu.: 27673   1st Qu.: 123380   1st Qu.: 1686   1st Qu.: 3928   1st Qu.: 272709   1st Qu.: 3249   1st Qu.: 1837057   1st Qu.:0.01263   1st Qu.: 125384     1st Qu.:0.4267  
+##  Mode  :character   Median : 80212   Median : 316176   Median : 3296   Median : 9938   Median : 637090   Median : 9576   Median : 4385076   Median :0.01509   Median : 321156     Median :0.5043  
+##                     Mean   :111099   Mean   : 498647   Mean   : 6291   Mean   :14659   Mean   : 917883   Mean   :14430   Mean   : 6433422   Mean   :0.01486   Mean   : 504938     Mean   :0.5083  
+##                     3rd Qu.:136766   3rd Qu.: 597709   3rd Qu.: 7522   3rd Qu.:19047   3rd Qu.:1154956   3rd Qu.:17990   3rd Qu.: 7589312   3rd Qu.:0.01709   3rd Qu.: 607302     3rd Qu.:0.5815  
+##                     Max.   :480506   Max.   :2926995   Max.   :47131   Max.   :72847   Max.   :5084927   Max.   :74046   Max.   :39613493   Max.   :0.02248   Max.   :2974126     Max.   :0.9033  
 ##    beds_perc      
 ##  Min.   :0.01397  
 ##  1st Qu.:0.01708  
-##  Median :0.01981  
-##  Mean   :0.02048  
+##  Median :0.02019  
+##  Mean   :0.02049  
 ##  3rd Qu.:0.02318  
 ##  Max.   :0.03579</code></pre>
 <p>So the final data-set after transformation will have 52 observations with 12 features.</p>

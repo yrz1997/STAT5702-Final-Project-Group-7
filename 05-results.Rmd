@@ -231,7 +231,118 @@ ggplot(hospital_case, aes(inhospi_rate, death_rate)) +
 
 Form the above graph, we can see that death rate increase as the hospitalization rate increases. There are two possible explanations. The first one is people would not go to hospital unless they are in very bad situation. Thus as the number of impatient increase, death rate increase. The second explanation is consider about the time range. There is no very useful way to cure COVID-19 patient in that time period. Thus there is a positive relationship between inpatient number and death rate. 
 
+## Impact of the
+```{r,message=FALSE,warning=FALSE}
+data_f<-data%>%
+  filter(continent != "NA")
+ggplot(data_f,aes(x = life_expectancy,y = total_cases_per_million))+
+         geom_point()+
+  facet_wrap(~continent) +
+  geom_smooth()+
+  theme_minimal() +
+  labs(x='Life Expectancy',y='Total Cases per Million')
+```
 
+We divide the countries in the data by each continent. Each country has only one life expectancy, so we draw the total cases per million of each country in each continent according to each life expectancy. We can see that the countries with higher life expectancy have more total cases per million.
+
+```{r,message=FALSE,warning=FALSE}
+# a total number of COVID-19 cases 
+total_cases_loc <- dat_a %>% group_by(location) %>%
+  summarise(total_cases[length(total_cases)])
+total_cases_loc
+
+loc <- c("China", "India","Sweden", "Russia", "United Kingdom", "United States")
+# find total cases
+total_cases_loc <- total_cases_loc[total_cases_loc$location %in% loc, ] 
+colnames(total_cases_loc)[2] <- "total_cases"
+
+dat_a$date <- dat_a$date %>% ymd()
+total_cases_per_day <- dat_a %>% group_by(location) %>% summarise(time_length(interval(date[1], date), "day")) 
+colnames(total_cases_per_day)[2] <- "Days"
+total_cases_per_day$new_cases <- dat_a$new_cases
+total_cases_per_day$total_cases_per_million <- dat_a$total_cases_per_million
+total_cases_per_day$new_cases_per_million <- dat_a$new_cases_per_million
+total_cases_per_day <- total_cases_per_day[total_cases_per_day$location %in% loc, ] 
+
+R2 <- ggplot(total_cases_per_day, aes(Days, total_cases_per_million, color = location, fill = location)) + 
+  geom_line() + 
+  labs(x = "Days since first confirmed case",
+       y = "Cumulative cases per million",
+       title = "Cumulative cases per million count by location") +
+  theme_light()
+R2 
+```
+
+This graph can help us make an analysis of the progress of total cases per million for the following countries: China, India, Sweden, Russia, United Kingdom, United States. The flattening curve means slowing down the rate of infections. The cumulative curve can help us see the cumulative change of infection cases every day. This can help hospitals manage the process of cases. It can help the hospital prepare and distribute wards, medical equipment, and medical supplies.
+
+```{r}
+W1 <- ggplot(total_cases_per_day,
+            aes(Days, new_cases, color = location, fill = location)) + 
+  geom_line() +
+  labs(x = "Days since first confirmed case",
+       y = " New cases",
+       title = "New cases count by location")+
+  theme_classic()+
+  theme(axis.line = element_line(color="black"),
+        axis.text = element_text(size = 12, color = "black"), 
+        axis.title = element_text(size = 12),
+        plot.title = element_text(family = "serif",hjust = 0.5))
+W1
+
+W2 <- ggplot(total_cases_per_day, aes(Days, new_cases_per_million, color = location, fill = location)) + 
+  geom_line(size = 1) + 
+  labs(x = "Number of days after the first confirmed case ",
+       y = "new cases per million",
+       title = "Number of new cases per million divided by location")+
+  theme_light() +
+  theme(axis.line = element_line(color="black"),
+        axis.text = element_text(size = 12, color = "black",
+                                 family = "serif"), 
+        axis.title = element_text(size = 12,family = "serif"),
+        plot.title = element_text(hjust = 0.5,family = "serif"))
+W2
+```
+
+These two graph are able to help us make an analysis of the progress of number of new cases and the progress of number of new cases per million divided by location for the following countries: China, India, Sweden, Russia, United Kingdom, United States. These two graphs show the changes in the number of new infections per day. We can see the number of new infection cases in each country in each time period and the comparison of the number of new infection cases in each country in the same time period. We can see a sudden increase in the number of new infections in India in a few days, and the United States has maintained the number of new infections for a period of time.
+ 
+```{r}
+### relationship between life expectancy and total number of cases per million population
+data_relation <- dat_a[, c("location", "total_cases_per_million", "life_expectancy")]
+
+data_relation_uni <- data_relation %>% group_by(location) %>% summarise(total_cases_per_million[length(total_cases_per_million)])
+data_relation_uni <- na.omit(data_relation_uni)
+data_relation <- data_relation[which(data_relation$total_cases_per_million %in% data_relation_uni$`total_cases_per_million[length(total_cases_per_million)]`), ]
+data_relation <- na.omit(data_relation)
+```
+
+```{r}
+ggplot(data_relation, aes(life_expectancy, total_cases_per_million)) + 
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = 'red', size = 0.5)+
+  geom_point(size = 1)+
+  theme_linedraw()+
+  theme(axis.line = element_line(color="black"),
+        axis.text = element_text(size = 12, color = "black",
+                                 family = "serif"), 
+        axis.title = element_text(size = 12,family = "serif"),
+        plot.title = element_text(hjust = 0.5,family = "serif"))
+
+  ggsave("cor.png", width = 6, height = 6, dpi = 900)
+```
+
+Life expectancy reflects a country's development level, or the proportion of the elderly population. The longer a country's life expectancy, the greater the proportion of the elderly population in the total population. Therefore, we analyzed the relationship between the number of confirmed cases of covid-19 and life expectancy. According to the data and statistical analysis provided by who, we can see that there is a positive correlation between life expectancy and confirmed cases of coronavirus.
+
+```{r}
+t.test(data_relation$total_cases_per_million)
+```
+
+```{r}
+t.test(data_relation$life_expectancy)
+```
+
+
+```{r}
+cor.test(data_relation$total_cases_per_million,data_relation$life_expectancy)
+```
 
 
 

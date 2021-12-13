@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | United States Covid Project</title>
-  <meta name="description" content="Chapter 4 Missing values | United States Covid Project" />
+  <title>Chapter 4 Missing values | Covid 19 Project</title>
+  <meta name="description" content="Chapter 4 Missing values | Covid 19 Project" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | United States Covid Project" />
+  <meta property="og:title" content="Chapter 4 Missing values | Covid 19 Project" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | United States Covid Project" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | Covid 19 Project" />
   
   
   
@@ -89,6 +89,7 @@
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#vaccination-data"><i class="fa fa-check"></i><b>2.1</b> Vaccination data</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#covid-19-reported-patient-impact-and-hospital-capa"><i class="fa fa-check"></i><b>2.2</b> COVID-19-Reported-Patient-Impact-and-Hospital-Capa</a></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#united-states-covid-19-cases-and-deaths-by-state"><i class="fa fa-check"></i><b>2.3</b> United-States-COVID-19-Cases-and-Deaths-by-State</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#life-expectancy-data"><i class="fa fa-check"></i><b>2.4</b> Life expectancy data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
@@ -111,11 +112,13 @@
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#covid-19_hospital_capacity-1"><i class="fa fa-check"></i><b>4.2</b> COVID-19_Hospital_Capacity</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#covid-19_case_death-1"><i class="fa fa-check"></i><b>4.3</b> COVID-19_Case_Death</a></li>
+<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#life-expectancy-data-1"><i class="fa fa-check"></i><b>4.4</b> Life Expectancy Data</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#impact-of-the-vaccination-on-the-spread-of-the-epidemic"><i class="fa fa-check"></i><b>5.1</b> Impact of the vaccination on the spread of the epidemic</a></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#impact-of-the-hospital-capacity-and-inpatient-rate-on-the-death-rate"><i class="fa fa-check"></i><b>5.2</b> Impact of the hospital capacity and inpatient rate on the death rate</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#impact-of-the"><i class="fa fa-check"></i><b>5.3</b> Impact of the</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
 <ul>
@@ -133,7 +136,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">United States Covid Project</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Covid 19 Project</a>
           </h1>
         </div>
 
@@ -198,9 +201,9 @@
 </div>
 <div id="heatmap" class="section level3" number="4.1.4">
 <h3><span class="header-section-number">4.1.4</span> Heatmap</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="960" /></p>
-<p>In order to see the missing patterns we have for this dataframe, we can use heatmap. It can be observed that rows that have missing values all at once by using this heatmap. However, since there are 330 rows in the us_whole_vaccination dataframe, it is hard to summarize the missing value patterns without showing the whole graph. Moreover, as looking through the graph, several rows have the similar missing value patterns. So instead of showing the heatmap for each row, plot just show the different missing value patterns for the dataset is prefered.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
+<p>In order to see the missing patterns we have for this dataframe, we can use heatmap. It can be observed that rows that have missing values all at once by using this heatmap. However, since there are 330 rows in the us_whole_vaccination dataframe, it is hard to summarize the missing value patterns without showing the whole graph. Moreover, as looking through the graph, several rows have the similar missing value patterns. So instead of showing the heatmap for each row, plot just show the different missing value patterns for the dataset is prefered.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="960" /></p>
 <p>This missing value plot is a combination of all the information above. It consists of three plots.</p>
 <p>The main plot is the heatmap on the bottom left. It summarized different missing value patterns among all rows. The blue block in each column represents there are missing values in this column. According to the main plot, it shows that there are 7 different patterns for us_whole_vaccination dataset, which are represented by each row of the heatmap. The first row in the heatmap represents the complete cases, which means there is no missing value for rows in this pattern. By looking through this plot, there is a correlation between some features as mentioned in 4.2. For example, for features “people_fully_vaccinated_per_hundred” and “people_fully_vaccinated”, in each pattern, their missing value always occurred in the same time. Similar for features “total_distributed, people_vaccinated, people_vaccinated_per_hundred, distributed_per_hundred, and share_doses_used”, “daily_vaccinations and daily_vaccinations_per_million”, and “total_vaccinations and total_vaccinations_per_hundred”. It indicates that for some of these features, it maybe reasonable to only keep one feature from each group. For example, keep “people_fully_vaccinated” and remove “people_fully_vaccinated_per_hundred”.</p>
 <p>The barplot on the right is the row count plot. It tells us the number of rows that each pattern can apply. It shows that the complete cases pattern has the most largest number of rows. From this plot, it shows that pattern 2 has the largest number of rows with missing data. By checking with this pattern, it contains 10 features that are missing. A reasonable guess is that the most of data for this pattern comes from December 2020 and January 2021. Crossing checking with the heatmap for each row in 4.4, this guess is confirmed.</p>
@@ -212,12 +215,12 @@
 <h2><span class="header-section-number">4.2</span> COVID-19_Hospital_Capacity</h2>
 <p>In order to see if there is any state has large number of missing values, missing table was built based on the data set before transformation. Below is the first five rows of the missing-value table. It counts the number of missing value in each feature for each state. According to the table, it indicates that there is no state that has more than half of its records are missing value. Therefore, for total_beds, total_icu_beds, aud_conf and ped_conf, choose the average value of these features in each state to replace the missing value.</p>
 <pre><code>##   state hospital_pk colle_week total_beds adu_conf ped_conf total_icu_beds     n
-## 1    AK           0          0          0        5        5             17   996
-## 2    AL           0          0          1       15       16              2  6769
-## 3    AR           0          0          0       25       25             30  5916
-## 4    AS           0          0          0        0        0              0    15
-## 5    AZ           0          0         10       33       93             89  5165
-## 6    CA           0          0          0       41       73              8 24754</code></pre>
+## 1    AK           0          0          0        5        5             17  1010
+## 2    AL           0          0          1       15       16              2  6866
+## 3    AR           0          0          0       25       25             30  6003
+## 4    AS           0          0          0        0        0              0    16
+## 5    AZ           0          0         10       33       93             89  5240
+## 6    CA           0          0          0       41       74              8 25107</code></pre>
 </div>
 <div id="covid-19_case_death-1" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> COVID-19_Case_Death</h2>
@@ -228,6 +231,14 @@
 ## tot_cases                 0
 ## tot_death                 0
 ## population                0</code></pre>
+</div>
+<div id="life-expectancy-data-1" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Life Expectancy Data</h2>
+<pre><code>##                iso_code               continent                location                    date             total_cases               new_cases total_cases_per_million   new_cases_per_million 
+##                       0                    8812                       0                       0                    7688                    7693                    8358                    8363 
+##         life_expectancy 
+##                    9728</code></pre>
+<p>We only select 9 features and these selected features including continent, location, date iso_code, total_cases, new_cases, total_cases_per_million, new_cases_per_million and life_expectancy. This is the missing value counts by different features. We use map_db() to solve these missing value problem and after we find them and count their number, we omit them by omit() and get a new dataset. From this table, we can see that the feature “iso_code” , “location” and “date” are comprehensive.</p>
 
 </div>
 </div>
