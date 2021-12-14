@@ -22,6 +22,10 @@ This is a template for the EDAV final project. It is based on the template creat
 
 - [ ] 2. We put some data and data cleaning process in data folder. There are several .csv files and .R files in there.
 
+### About
+
+- [ ] Rendered version: https://yrz1997.github.io/STAT5702-Final-Project-Group-7/
+
 ### Additional features	
 
 Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
