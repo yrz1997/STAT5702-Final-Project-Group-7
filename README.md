@@ -1,15 +1,11 @@
 This is a template for the EDAV final project. It is based on the template created with *File, New Project..., New Directory, Book Project using bookdown* in RStudio. 
 
 
-## United States Covid Project
-
-*If you have any difficulties or have feedback of any kind, please file an issue.*
+## Covid Project
 
 ### Introduction
  
-- [ ] 1. Click the green "Use this template" button above.  DO NOT FORK THE REPO. Choose a descriptive name for your repo, such as "federalbudget" or "AIDSdeaths".  (If you change your mind before you do any work, delete your new repo and start over.)
-
-- [ ] 2. In the Description field, write: "Bookdown source files for EDAV final project".
+- [ ] In this project, we focus on influence of Covid on life expectancy, are vaccination helping to stop the spread of COVID, and impact of the hospital capacity and inpatient rate on COVID death rate.
 
 ### Data Sources
 - [ ] 1. JHU/Oxford data: https://github.com/owid/covid-19-data/tree/master/public/data 	
@@ -18,9 +14,13 @@ This is a template for the EDAV final project. It is based on the template creat
 
 - [ ] 3. Patients' clinical information: https://gis.cdc.gov/grasp/COVIDNet/COVID19_5.html
 
-### Demo Video	
+- [ ] 4. United States CDC
 
-A demo video showing how to create a **bookdown book** following these similar instructions: http://bit.ly/fiveminutebookdown Note that this video uses a different template.
+### Structure
+
+- [ ] 1. Each session has it's unique .Rmd file.
+
+- [ ] 2. We put some data and data cleaning process in data folder. There are several .csv files and .R files in there.
 
 ### Additional features	
 
