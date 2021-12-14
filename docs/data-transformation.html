@@ -100,6 +100,7 @@
 <li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#covid-19_case_death"><i class="fa fa-check"></i><b>3.2.2</b> COVID-19_Case_Death</a></li>
 <li class="chapter" data-level="3.2.3" data-path="data-transformation.html"><a href="data-transformation.html#merge"><i class="fa fa-check"></i><b>3.2.3</b> Merge</a></li>
 </ul></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#life-expectancy"><i class="fa fa-check"></i><b>3.3</b> Life Expectancy</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
@@ -158,15 +159,15 @@
 <p>Dataframe after transformation:</p>
 <pre><code>## # A tibble: 6 x 16
 ## # Groups:   state [1]
-##   date       state  total_vaccinatio~ total_distributed people_vaccinated people_fully_vacci~ total_vaccinatio~ people_fully_va~ people_vaccinate~ distributed_per~ daily_vaccinati~ daily_vaccinati~
-##   &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-## 1 2021-01-13 Alaba~             84040            378975             74792                0.19              1.71             9245              1.53             7.73             5906             5906
-## 2 2021-01-14 Alaba~             92300            435350             80480                0.19              1.88             9245              1.64             8.88             8260             7083
-## 3 2021-01-15 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7478
-## 4 2021-01-16 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7498
-## 5 2021-01-17 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7509
-## 6 2021-01-18 Alaba~            100567            444650             86956                0.28              2.05            13488              1.77             9.07             8267             7517
-## # ... with 4 more variables: daily_vaccinations_per_million &lt;dbl&gt;, share_doses_used &lt;dbl&gt;, vacc_diff &lt;dbl&gt;, fully_vacc_diff &lt;dbl&gt;</code></pre>
+##   date       state  total_vaccinatio~ total_distributed people_vaccinated people_fully_va~ total_vaccinati~ people_fully_va~ people_vaccinat~ distributed_per~ daily_vaccinati~ daily_vaccinati~ daily_vaccinati~
+##   &lt;date&gt;     &lt;chr&gt;              &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 2021-01-13 Alaba~             84040            378975             74792             0.19             1.71             9245             1.53             7.73             5906             5906             1205
+## 2 2021-01-14 Alaba~             92300            435350             80480             0.19             1.88             9245             1.64             8.88             8260             7083             1445
+## 3 2021-01-15 Alaba~            100567            444650             86956             0.28             2.05            13488             1.77             9.07             8267             7478             1525
+## 4 2021-01-16 Alaba~            100567            444650             86956             0.28             2.05            13488             1.77             9.07             8267             7498             1529
+## 5 2021-01-17 Alaba~            100567            444650             86956             0.28             2.05            13488             1.77             9.07             8267             7509             1531
+## 6 2021-01-18 Alaba~            100567            444650             86956             0.28             2.05            13488             1.77             9.07             8267             7517             1533
+## # ... with 3 more variables: share_doses_used &lt;dbl&gt;, vacc_diff &lt;dbl&gt;, fully_vacc_diff &lt;dbl&gt;</code></pre>
 <p>Case and death:
 1. Filter out non-state, only keep 50 states.
 2. Convert date columns to rows by using dplyr.
@@ -200,6 +201,7 @@
 <p>In order to see the relationship, two data-set ‘COVID-19-Reported-Patient-Impact-and-Hospital-Capa’ and ‘United-States-COVID-19-Cases-and-Deaths-by-State’ are used.</p>
 <div id="covid-19_hospital_capacity" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> COVID-19_Hospital_Capacity</h3>
+<p>The code is in data/hospital_preprocessing.R</p>
 <p>Hospital capacity:
 1. replace -999999 with 2
 2. select useful features
@@ -225,7 +227,7 @@
 3. select useful features
 4. add column ‘population’ by state
 5. keep the record with latest date for each state as features ‘tot_cases’ and ‘tot_death’ are cumulative features</p>
-<p>Dataframes after transformation:</p>
+<p>Summary of data frame after transformation:</p>
 <pre><code>##     state           submission_date        tot_cases         tot_death       population      
 ##  Length:52          Min.   :2021-12-03   Min.   :  47767   Min.   :  397   Min.   :  581075  
 ##  Class :character   1st Qu.:2021-12-03   1st Qu.: 272709   1st Qu.: 3249   1st Qu.: 1837057  
@@ -253,8 +255,32 @@
 ##  3rd Qu.:0.02318  
 ##  Max.   :0.03579</code></pre>
 <p>So the final data-set after transformation will have 52 observations with 12 features.</p>
-
 </div>
+</div>
+<div id="life-expectancy" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Life Expectancy</h2>
+<p>We first selected 9 useful features from original dataset. Then, we omit the missing value from the dataset. In my earlier analysis of cumulative cases per million count by location and number of new cases per million divided by location, I only studied China, India, Sweden, Russia, United Kingdom and the United States. And I also change date from character type to data type. So we have six locations and their total cases. We build up :total_cases_per_day by adding the exact length of a time span, new cases, total_cases_per_million, and new_cases_per_million from dat_a.
+Two dataframe after transformation:</p>
+<pre><code>## # A tibble: 6 x 9
+##   iso_code continent location    date       total_cases new_cases total_cases_per_million new_cases_per_million life_expectancy
+##   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;       &lt;date&gt;           &lt;dbl&gt;     &lt;dbl&gt;                   &lt;dbl&gt;                 &lt;dbl&gt;           &lt;dbl&gt;
+## 1 AFG      Asia      Afghanistan 2020-02-24           5         5                   0.126                 0.126            64.8
+## 2 AFG      Asia      Afghanistan 2020-02-25           5         0                   0.126                 0                64.8
+## 3 AFG      Asia      Afghanistan 2020-02-26           5         0                   0.126                 0                64.8
+## 4 AFG      Asia      Afghanistan 2020-02-27           5         0                   0.126                 0                64.8
+## 5 AFG      Asia      Afghanistan 2020-02-28           5         0                   0.126                 0                64.8
+## 6 AFG      Asia      Afghanistan 2020-02-29           5         0                   0.126                 0                64.8</code></pre>
+<pre><code>## # A tibble: 6 x 5
+## # Groups:   location [1]
+##   location  Days new_cases total_cases_per_million new_cases_per_million
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;                   &lt;dbl&gt;                 &lt;dbl&gt;
+## 1 China        0        93                   0.444                 0.064
+## 2 China        1       277                   0.636                 0.192
+## 3 China        2       483                   0.97                  0.334
+## 4 China        3       666                   1.43                  0.461
+## 5 China        4       802                   1.99                  0.555
+## 6 China        5      2632                   3.81                  1.82</code></pre>
+
 </div>
 </div>
             </section>

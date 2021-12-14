@@ -100,6 +100,7 @@
 <li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#covid-19_case_death"><i class="fa fa-check"></i><b>3.2.2</b> COVID-19_Case_Death</a></li>
 <li class="chapter" data-level="3.2.3" data-path="data-transformation.html"><a href="data-transformation.html#merge"><i class="fa fa-check"></i><b>3.2.3</b> Merge</a></li>
 </ul></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#life-expectancy"><i class="fa fa-check"></i><b>3.3</b> Life Expectancy</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
@@ -157,8 +158,8 @@
 <p>The starting date of this dataset is 2021-01-12 and the last day is yesterday.
 The first problem we noticed was that in location, there are many places that are not US states. Like “Bureau of Prisons”,“Dept of Defense”… Therefore, the first step that we did was to filter out these none-states. Then we found a common issue, missing data. We visualized it in missing values chapter and decided to do a backward filling. Because most of these missing values were not continuous, we could simply use the latest values to fill in these missing spots.</p>
 <p>For the cases and death data, the raw data put every day as a column therefore we first converted these columns to rows.</p>
-<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;           &quot;Admin2&quot;         &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;          &quot;Combined_Key&quot;  
-## [12] &quot;1/22/20&quot;        &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
+<pre><code>##  [1] &quot;UID&quot;            &quot;iso2&quot;           &quot;iso3&quot;           &quot;code3&quot;          &quot;FIPS&quot;           &quot;Admin2&quot;         &quot;Province_State&quot; &quot;Country_Region&quot; &quot;Lat&quot;            &quot;Long_&quot;          &quot;Combined_Key&quot;   &quot;1/22/20&quot;       
+## [13] &quot;1/23/20&quot;        &quot;1/24/20&quot;        &quot;1/25/20&quot;</code></pre>
 <p>The starting date of this dataset is 2020-01-22 and the last day is yesterday.
 When we tried to calculate daily growing cases and death from cummulative data, we noticed that there were mistakes when collecting these data because some of the growing numbers were negative. We used the same filling method as in vaccination data.</p>
 </div>
@@ -190,10 +191,17 @@ When we tried to calculate daily growing cases and death from cummulative data, 
 </div>
 <div id="life-expectancy-data" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Life expectancy data</h2>
-<p>Our complete owid_covid_data data set is collected from ‘Our World in Data’. It is updated daily and includes data on confirmed cases, deaths and testing. The dataset can be downloaded from <a href="https://ourworldindata.org/coronavirus-source-data" class="uri">https://ourworldindata.org/coronavirus-source-data</a>.
-Confirmed cases and deaths of our data comes from the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU). Full description of all variables is available in the codebook or online: <a href="https://github.com/owid/covid-19-data/tree/master/public/data/" class="uri">https://github.com/owid/covid-19-data/tree/master/public/data/</a>
-Most variable names are self-explanatory and there are too many of them. However, we do not need all of those features for our analysis, so we only select 9 features. These selected features including continent, location, date iso_code, total_cases, new_cases, total_cases_per_million, new_cases_per_million and life_expectancy.
-After all, the data on the new crown can not be statistically comprehensive, so there are missing values in this data set, so we deal with the missing values.</p>
+<p>Our complete owid_covid_data data set is collected from ‘Our World in Data’. It includes data form Jan 2020 to Dec 2021. It is updated daily and includes data on confirmed cases, deaths and testing. The dataset can be downloaded from <a href="https://ourworldindata.org/coronavirus-source-data" class="uri">https://ourworldindata.org/coronavirus-source-data</a>.
+Confirmed cases and deaths of our data comes from the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU). Full description of all variables is available in the code book or online: <a href="https://github.com/owid/covid-19-data/tree/master/public/data/" class="uri">https://github.com/owid/covid-19-data/tree/master/public/data/</a>
+It original includes 138480 records and 67 features. But most variable names are self-explanatory and there are too many of them. So we only select 9 features. These selected features including continent, location, date iso_code, total_cases, new_cases, total_cases_per_million, new_cases_per_million and life_expectancy. Moreover, since the data on the COVID-19 can not be statistically comprehensive, so there are missing values in this data set, which are needed to be dealt with.</p>
+<pre><code>##    iso_code          continent           location              date             total_cases          new_cases      total_cases_per_million new_cases_per_million life_expectancy
+##  Length:138480      Length:138480      Length:138480      Min.   :2020-01-01   Min.   :        1   Min.   :-74347   Min.   :     0.0        Min.   :-3125.829     Min.   :53.28  
+##  Class :character   Class :character   Class :character   1st Qu.:2020-08-20   1st Qu.:     2603   1st Qu.:     3   1st Qu.:   452.9        1st Qu.:    0.326     1st Qu.:67.94  
+##  Mode  :character   Mode  :character   Mode  :character   Median :2021-02-07   Median :    30042   Median :   105   Median :  3506.4        Median :   11.401     Median :74.62  
+##                                                           Mean   :2021-01-27   Mean   :  2174954   Mean   :  8527   Mean   : 21249.7        Mean   :   90.731     Mean   :73.26  
+##                                                           3rd Qu.:2021-07-09   3rd Qu.:   281711   3rd Qu.:  1098   3rd Qu.: 27346.0        3rd Qu.:   85.426     3rd Qu.:78.74  
+##                                                           Max.   :2021-12-07   Max.   :267150598   Max.   :908289   Max.   :252906.2        Max.   : 8620.690     Max.   :86.75  
+##                                                                                NA&#39;s   :7688        NA&#39;s   :7693     NA&#39;s   :8358            NA&#39;s   :8363          NA&#39;s   :9728</code></pre>
 
 </div>
 </div>

@@ -10,6 +10,7 @@ relationship-between-morbidity-and-mortality-and-hospital-capacity
 covid-19_hospital_capacity
 covid-19_case_death
 merge
+life-expectancy
 missing-values
 us-vaccination
 dataframe-after-data-cleaning

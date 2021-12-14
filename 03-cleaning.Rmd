@@ -34,6 +34,7 @@ head(state_death)
 In order to see the relationship, two data-set 'COVID-19-Reported-Patient-Impact-and-Hospital-Capa' and 'United-States-COVID-19-Cases-and-Deaths-by-State' are used.
 
 ### COVID-19_Hospital_Capacity
+The code is in data/hospital_preprocessing.R
 
 Hospital capacity:
 1. replace -999999 with 2
@@ -84,7 +85,7 @@ Death case:
 4. add column 'population' by state
 5. keep the record with latest date for each state as features 'tot_cases' and 'tot_death' are cumulative features
 
-Dataframes after transformation:
+Summary of data frame after transformation:
 ```{r}
 case_state <- case_death_selected [case_death_selected $submission_date==end_date_hos,]
 summary(case_state )
@@ -120,7 +121,19 @@ summary(hospital_case)
 So the final data-set after transformation will have 52 observations with 12 features.
 
 
+## Life Expectancy
 
+We first selected 9 useful features from original dataset. Then, we omit the missing value from the dataset. In my earlier analysis of cumulative cases per million count by location and number of new cases per million divided by location, I only studied China, India, Sweden, Russia, United Kingdom and the United States. And I also change date from character type to data type. So we have six locations and their total cases. We build up :total_cases_per_day by adding the exact length of a time span, new cases, total_cases_per_million, and new_cases_per_million from dat_a. 
+Two dataframe after transformation:
+
+```{r}
+head(dat_a)
+
+```
+```{r}
+head(total_cases_per_day)
+
+```
 
 
 
