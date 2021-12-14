@@ -1,6 +1,6 @@
 ## EDAV PROJECT: Covid Visualization
 
-# Ruize Yu, Wenxin Zhang, Jiazhen Li
+### Ruize Yu, Wenxin Zhang, Jiazhen Li
  
 In this project, we focus on influence of Covid on life expectancy, are vaccination helping to stop the spread of COVID, and impact of the hospital capacity and inpatient rate on COVID death rate.
 
