@@ -7,6 +7,8 @@ In this project, we focus on influence of Covid on life expectancy, are vaccinat
 ### Link to book
 https://yrz1997.github.io/STAT5702-Final-Project-Group-7/
 
+This repo was initially generated from a bookdown template available at: https://github.com/jtr13/EDAVtemplate.
+
 
 
    
